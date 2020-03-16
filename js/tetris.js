@@ -23,12 +23,26 @@ function moveDown() {
  * Moves current active object right
  */
 function moveRight() {
+    let currentObject = getCurrentObject();
+    if (!currentObject.position.some(at_right_edge)) {
+        currentObject.position.forEach(position => position[1] += 1);
+    }
+    playground = createPlayground();
+    renderPositions();
+    renderPlayground();
     console.log("moving right");
 }
 /**
  * Moves current active object left
  */
 function moveLeft() {
+    let currentObject = getCurrentObject();
+    if (!currentObject.position.some(at_left_edge)) {
+        currentObject.position.forEach(position => position[1] -= 1);
+    }
+    playground = createPlayground();
+    renderPositions();
+    renderPlayground();
     console.log("moving left");
 }
 /**
@@ -48,6 +62,9 @@ function pauseGame() {
 var gameInterval = setInterval(() => {
     moveDown();
 }, 1000);
+
+
+const EVENT_HANDLERS = { [UP]: rotate, [DOWN]: moveDown, [LEFT]: moveLeft, [RIGHT]: moveRight };
 
 renderPlayground();
 
