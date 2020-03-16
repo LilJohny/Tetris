@@ -1,4 +1,6 @@
-// will add object positions to the emply playground array
+/**
+ * Adds object positions to the empty playground array
+ */
 function renderPositions() {
     objects.forEach(object => {
         object.position.forEach(([rowIndex, cellIndex]) => {
@@ -7,44 +9,52 @@ function renderPositions() {
     });
 }
 
-
-function moveDown(obj) {
-    console.log("moving down");
+/**
+ * Moves current active object down
+ */
+function moveDown() {
     let currentObject = getCurrentObject();
     currentObject.position.forEach(position => position[0] -= 1);
-    // TODO 1 get current object - done
     playground = createPlayground();
-    // TODO 2 redefine objects - done
-    //TODO 3 redefine clear playground
-    // rerender Positions
     renderPositions();
-    //5 rerender Plaground
     renderPlayground();
 }
-
-function moveRight(obj) {
+/**
+ * Moves current active object right
+ */
+function moveRight() {
     console.log("moving right");
 }
-
-function moveLeft(obj) {
+/**
+ * Moves current active object left
+ */
+function moveLeft() {
     console.log("moving left");
 }
+/**
+ * Rotates currently active object
+ */
+function rotate() {
+    console.log("rotating");
+}
+/**
+ * Pauses game
+ */
 function pauseGame() {
     console.log("PAUSE");
     clearInterval();
 }
 
-// function createObj() {}
-
-//interval 1 second
 var gameInterval = setInterval(() => {
     moveDown();
 }, 1000);
-//Events
-//1. move to bottom
-//2. move to right
-//3. move to right
-//4. move to right
-//5. move to right
-//6. move to right
+
 renderPlayground();
+
+// TODO Random rotation on create
+// TODO Move left with key
+// TODO Move right with key
+// TODO Speed up moving down with key
+// TODO Line disappearing
+// TODO Fixing figures
+// TODO Game over when can`t create figure

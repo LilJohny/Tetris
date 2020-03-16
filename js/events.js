@@ -13,6 +13,7 @@ document.addEventListener("keydown", event => {
             pauseGame();
             break;
         default:
+            rotate();
             break;
     }
 });
