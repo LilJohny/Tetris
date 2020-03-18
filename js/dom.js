@@ -40,3 +40,11 @@ function createCell(cellIndex, color) {
     cellNode.setAttribute("class", `cell cell-${cellIndex} ${color}`);
     return cellNode;
 }
+/**
+ * Displays score
+ * @param  {number} score Score that will be displayed
+ */
+function setScore(score) {
+    let playgroundNode = document.getElementById("score");
+    playgroundNode.innerText = `Your Score: ${score}`;
+}

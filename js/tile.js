@@ -1,4 +1,4 @@
-class Shape {
+class Tile {
     constructor(shape_type, coordinates, shape_state) {
         this.type = shape_type;
         this.position = coordinates;

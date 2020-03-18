@@ -1,8 +1,8 @@
 var playground = createPlayground();
 
 var objects = [
-    new figureL([[9, 1], [8, 1], [8, 2], [8, 3]], STATES.FALLING),
-    new figureL([[2, 0], [1, 0], [0, 0], [0, 1]], STATES.STATIC)
+    new tileL([[9, 1], [8, 1], [8, 2], [8, 3]], STATES.FALLING),
+    new tileL([[2, 0], [1, 0], [0, 0], [0, 1]], STATES.STATIC)
 ];
 var paused = false;
 // , {
