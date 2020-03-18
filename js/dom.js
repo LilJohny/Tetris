@@ -1,8 +1,8 @@
 /**
  * render DOM nodes according to the playground definition
  */
-function renderPlayground() {
-    renderPositions();
+function renderPlayground(objects) {
+    renderPositions(objects);
     let playgroundNode = document.getElementById("playground");
     playgroundNode.innerHTML = '';
     for (let rowIndex = playground.length - 1; rowIndex >= 0; rowIndex--) {
@@ -12,6 +12,13 @@ function renderPlayground() {
         }
         playgroundNode.appendChild(rowNode);
     }
+}
+function renderPositions(objects) {
+    objects.forEach(object => {
+        object.position.forEach(([rowIndex, cellIndex]) => {
+            playground[rowIndex][cellIndex] = TYPE_COLORS[object.type];
+        });
+    });
 }
 /**
  *  Creates <div class="row" id="row-9">
@@ -32,4 +39,17 @@ function createCell(cellIndex, color) {
     let cellNode = document.createElement("div");
     cellNode.setAttribute("class", `cell cell-${cellIndex} ${color}`);
     return cellNode;
+}
+/**
+ * Function removes row from playground
+ * @param  {number} rowInd - index of row to remove
+ */
+function removeRow(rowInd) {
+    let playgroundNode = document.getElementById("playground");
+    let childNodes = playgroundNode.childNodes;
+    let row = childNodes[childNodes.length - rowInd - 1];
+    console.log(row);
+    playgroundNode.removeChild(row);
+    
+    //playgroundNode.removeChild(child);
 }
