@@ -40,16 +40,3 @@ function createCell(cellIndex, color) {
     cellNode.setAttribute("class", `cell cell-${cellIndex} ${color}`);
     return cellNode;
 }
-/**
- * Function removes row from playground
- * @param  {number} rowInd - index of row to remove
- */
-function removeRow(rowInd) {
-    let playgroundNode = document.getElementById("playground");
-    let childNodes = playgroundNode.childNodes;
-    let row = childNodes[childNodes.length - rowInd - 1];
-    console.log(row);
-    playgroundNode.removeChild(row);
-    
-    //playgroundNode.removeChild(child);
-}

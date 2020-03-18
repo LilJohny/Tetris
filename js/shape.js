@@ -8,16 +8,18 @@ class Shape {
         console.log("moving down");
         let falling = this.state === STATES.FALLING;
         let movable_down = this.position.every(can_be_moved_down);
-        console.log(movable_down);
-        console.log(this.state);
-        console.log(tetris.paused);
+        let moved = false;
         if (falling && movable_down && !tetris.paused) {
             this.position.forEach(position => position[0] -= 1);
+            moved = true;
         }
         if (!movable_down) {
             this.state = STATES.STATIC;
         }
         tetris.update_playground();
+        if (moved && !this.position.every(can_be_moved_down)) {
+            this.state = STATES.STATIC;
+        }
     }
     at_left_edge() {
         return this.position.some(coords => coords[1] === BOARD.LEFT_EDGE);
@@ -26,7 +28,6 @@ class Shape {
         return this.position.some(coords => coords[1] === BOARD.RIGHT_EDGE);
     }
     moveRight() {
-        console.log(this);
         let falling = this.state === "falling";
         let movable_right = !this.at_right_edge();
         if (falling && movable_right && !tetris.paused) {
