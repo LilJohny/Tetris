@@ -13,3 +13,23 @@ class tileL extends Tile {
         super("L", coordinates, figure_state);
     }
 }
+class tileS extends Tile {
+    constructor(coordinates, figure_state) {
+        super("S", coordinates, figure_state);
+    }
+}
+class tileZ extends Tile {
+    constructor(coordinates, figure_state) {
+        super("Z", coordinates, figure_state);
+    }
+}
+class tileO extends Tile {
+    constructor(coordinates, figure_state) {
+        super("O", coordinates, figure_state);
+    }
+}
+class tileJ extends Tile {
+    constructor(coordinates, figure_state) {
+        super("J", coordinates, figure_state);
+    }
+}

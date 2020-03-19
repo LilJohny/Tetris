@@ -21,7 +21,6 @@ class Tetris {
         }
     }
 
-    
     update_playground() {
         playground = createPlayground();
         renderPositions(this.objects);
@@ -66,5 +65,4 @@ const EVENT_HANDLERS = { [KEYS.UP]: getCurrentObject().rotate, [KEYS.DOWN]: getC
 // TODO Game over when can`t create figure
 // TODO Figure rotation on UP button
 // TODO Figures creation
-// TODO Add more figures
 // TODO Refactoring
