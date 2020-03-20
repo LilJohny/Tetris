@@ -3,6 +3,7 @@ class Tile {
         this.type = shape_type;
         this.position = coordinates;
         this.state = shape_state;
+        this.current_rotation = 0;
     }
     moveDown() {
         console.log("moving down");
@@ -44,16 +45,5 @@ class Tile {
         }
         tetris.update_playground();
         console.log("moving left");
-    }
-    rotate() {
-        let new_position = [];
-        for (let i = 0; i < this.position.length; i++) {
-            const element = this.position[i];
-            const new_element = [element[1], element[0]];
-            new_position.push(new_element);
-        }
-        this.position = new_position;
-        tetris.update_playground();
-        console.log("rotating");
     }
 }

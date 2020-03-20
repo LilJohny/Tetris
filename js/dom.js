@@ -16,7 +16,12 @@ function renderPlayground(objects) {
 function renderPositions(objects) {
     objects.forEach(object => {
         object.position.forEach(([rowIndex, cellIndex]) => {
-            playground[rowIndex][cellIndex] = TYPE_COLORS[object.type];
+            if (playground[rowIndex] === undefined) {
+                console.log(`undfined row ${rowIndex}`);
+            }
+            if (rowIndex <= BOARD.HEIGHT) {
+                playground[rowIndex][cellIndex] = TYPE_COLORS[object.type];
+            }
         });
     });
 }

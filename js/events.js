@@ -1,8 +1,10 @@
 document.addEventListener("keydown", event => {
-    let handler = EVENT_HANDLERS[event.keyCode];
-    if (handler === undefined) {
+    let handler_pair = EVENT_HANDLERS[event.keyCode];
+    if (handler_pair === undefined) {
         console.log(`Unsupported key ${event.keyCode}`);
     } else {
-        handler.call(getCurrentObject());
+        let object = handler_pair[1]();
+        let handler = handler_pair[0];
+        handler.call(object);
     }
 });

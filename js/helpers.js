@@ -3,14 +3,24 @@ var createPlayground = () => new Array(10).fill().map(el => (new Array(5).fill()
 
 
 function can_be_moved_down(coordinates) {
-    same_figure = arguments[2];
-    let self_overlapped = array_in_array(same_figure, [coordinates[0] - 1, coordinates[1]]);
-    let in_borders = coordinates[0] <= BOARD.HEIGHT && coordinates[0] > BOARD.LEFT_EDGE;
-    let down_cell_empty = false;
-    if (in_borders) {
-        down_cell_empty = playground[coordinates[0] - 1][coordinates[1]] === undefined;
+    let same_figure = arguments[2];
+    let self_overlapped = false;
+    let in_borders = coordinates[0] >= 0;
+    let below_cell_empty = false;
+    let above_upper_border = coordinates[0] >= BOARD.HEIGHT;
+    if (playground[coordinates[0] - 1] === undefined) {
+        console.log(`undefined in ${coordinates[0] - 1}`);
     }
-    return in_borders && (down_cell_empty || self_overlapped);
+    let below_cell_exists = coordinates[0] - 1 >= 0;
+    if (in_borders && !above_upper_border && below_cell_exists) {
+        below_cell_empty = playground[coordinates[0] - 1][coordinates[1]] === undefined;
+    } else if (above_upper_border) {
+        below_cell_empty = true;
+    }
+    if (below_cell_exists) {
+        self_overlapped = array_in_array(same_figure, [coordinates[0] - 1, coordinates[1]]);
+    }
+    return in_borders && (below_cell_empty || self_overlapped);
 }
 function array_in_array(main, sub) {
     let not_equal = 0;

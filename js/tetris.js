@@ -57,8 +57,10 @@ function removeRow(rowInd) {
 
 
 var tetris = new Tetris(objects);
-
-const EVENT_HANDLERS = { [KEYS.UP]: getCurrentObject().rotate, [KEYS.DOWN]: getCurrentObject().moveDown, [KEYS.LEFT]: getCurrentObject().moveLeft, [KEYS.RIGHT]: getCurrentObject().moveRight, [KEYS.SPACE]: tetris.pauseGame };
+function getTetris() {
+    return tetris;
+}
+const EVENT_HANDLERS = { [KEYS.UP]: [getCurrentObject().rotate, getCurrentObject], [KEYS.DOWN]: [getCurrentObject().moveDown, getCurrentObject], [KEYS.LEFT]: [getCurrentObject().moveLeft, getCurrentObject], [KEYS.RIGHT]: [getCurrentObject().moveRight, getCurrentObject], [KEYS.SPACE]: [tetris.pauseGame, getTetris] };
 
 
 // TODO Random rotation on create
