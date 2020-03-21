@@ -4,6 +4,7 @@ class tileI extends Tile {
         super("I", coordinates, figure_state);
         this.spawn_location = [0, BOARD.RIGHT_EDGE / 2];
         this.center = 2;
+        this.color = "green";
     }
 
     static rotations() {
@@ -48,7 +49,6 @@ class tileI extends Tile {
             this.position = new_position;
         }
         tetris.update_playground();
-
     }
 }
 
@@ -100,6 +100,7 @@ class tileL extends Tile {
     constructor(coordinates, figure_state) {
         super("L", coordinates, figure_state);
         this.center = this.position[1];
+        this.color = "red";
     }
 
     static rotations() {
@@ -207,6 +208,7 @@ class tileT extends Tile {
     constructor(coordinates, figure_state) {
         super("T", coordinates, figure_state);
         this.center = this.position[2];
+        this.color = "purple";
     }
 
     static rotations() {

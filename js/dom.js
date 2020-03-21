@@ -17,10 +17,10 @@ function renderPositions(objects) {
     objects.forEach(object => {
         object.position.forEach(([rowIndex, cellIndex]) => {
             if (playground[rowIndex] === undefined) {
-                console.log(`undfined row ${rowIndex}`);
+                console.log(`undefined row ${rowIndex}`);
             }
             if (rowIndex <= BOARD.HEIGHT) {
-                playground[rowIndex][cellIndex] = TYPE_COLORS[object.type];
+                playground[rowIndex][cellIndex] = object.color;
             }
         });
     });

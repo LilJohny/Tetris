@@ -54,7 +54,7 @@ function gameLoop() {
 
 function removeRow(rowInd) {
     tetris.objects.forEach(element => {
-        element.position = element.position.filter(coords => coords[0] != rowInd);
+        element.position = element.position.filter(coords => coords[0] !== rowInd);
     });
     console.log("objects: ");
     console.log(tetris.objects);

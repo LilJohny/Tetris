@@ -1,6 +1,6 @@
 var getCurrentObject = () => objects.find(object => object.state === STATES.FALLING);
-var createPlayground = () => new Array(10).fill().map(el => (new Array(5).fill()));
 
+var createPlayground = () => new Array(10).fill().map(el => (new Array(5).fill()));
 
 function can_be_moved_down(coordinates) {
     let same_figure = arguments[2];

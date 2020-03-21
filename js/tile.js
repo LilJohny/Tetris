@@ -51,23 +51,4 @@ class Tile {
         tetris.update_playground();
         console.log("moving left");
     }
-
-    inCoordinates(coords) {
-        let not_equal = 0;
-        for (let i = 0; i < this.position.length; i++) {
-            const element = this.position[i];
-            if (element.length !== coords.length) {
-                not_equal += 1;
-                continue;
-            }
-            for (let j = 0; j < element.length; j++) {
-                const sub_element = element[j];
-                if (sub_element !== coords[j]) {
-                    not_equal += 1;
-                    break;
-                }
-            }
-        }
-        return not_equal !== this.position.length;
-    }
 }
