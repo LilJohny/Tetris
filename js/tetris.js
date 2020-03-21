@@ -10,7 +10,7 @@ class Tetris {
                 this.static_coords.push(...object.position);
             }
         });
-        renderPlayground(this.objects);
+        playground.render(this.objects);
     }
 
     /**
@@ -29,8 +29,8 @@ class Tetris {
 
     update_playground() {
         playground = createPlayground();
-        renderPositions(this.objects);
-        renderPlayground(this.objects);
+        //renderPositions(this.objects);
+        playground.render(this.objects);
     }
 }
 
@@ -48,7 +48,7 @@ function gameLoop() {
             removeRow(row_number);
         }
         tetris.score += LINE_PRICE;
-        setScore(tetris.score);
+        playground.setScore(tetris.score);
     }
 }
 
