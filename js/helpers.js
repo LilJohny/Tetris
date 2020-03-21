@@ -40,3 +40,9 @@ function arrayInArray(sub, main = tetris.playground.static_coords) {
     return not_equal !== main.length;
 }
 
+function correct_side_borders(coords) {
+    if (coords[1] > BOARD.RIGHT_EDGE || coords[1] < 0) {
+        return false;
+    }
+    return true;
+}

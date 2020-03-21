@@ -69,13 +69,14 @@ class Playground {
         tetrisObj.objects.forEach(element => {
             element.position = element.position.filter(coords => coords[0] !== rowInd);
         });
+        console.log(` row destroyed ${rowInd}`);
         tetrisObj.update_playground();
         for (let i = 0; i < tetrisObj.objects.length; i++) {
             const element = tetrisObj.objects[i];
             for (let i = 0; i < element.position.length; i++) {
                 let coords = element.position[i];
-                if (coords[0] < rowInd) {
-                    coords -= 1;
+                if (coords[0] > rowInd) {
+                    coords[0] -= 1;
                 }
             }
         }
@@ -106,6 +107,8 @@ class Playground {
             coords_to_remove.push([row_number, i]);
         }
         let fl = true;
+        console.log("static");
+        console.log(tetris.playground.static_coords);
         for (let i = 0; i < coords_to_remove.length; ++i) {
             if (!arrayInArray(coords_to_remove[i])) {
                 fl = false;
