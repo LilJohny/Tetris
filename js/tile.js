@@ -24,59 +24,50 @@ class Tile {
         console.log(tetris.static_coords);
     }
 
-    at_left_edge() {
-        return this.position.some(coords => coords[1] === BOARD.LEFT_EDGE);
+    canBeMovedLeft() {
+        let on_edge = this.position.some(coords => coords[1] === BOARD.LEFT_EDGE);
+        let left_free = this.position.some(coords => {
+            let newLocation = [coords[0], coords[1] - 1];
+            let coord_used = tetris.playground.playgroundMap[newLocation[0]][newLocation[1]] !== undefined;
+            let inThisFigure = arrayInArray(newLocation, this.position);
+            return !(coord_used && inThisFigure);
+        });
+        return !on_edge && left_free;
     }
 
-    at_right_edge() {
-        return this.position.some(coords => coords[1] === BOARD.RIGHT_EDGE);
+    canBeMovedRight() {
+        let on_edge = this.position.some(coords => coords[1] === BOARD.RIGHT_EDGE);
+        let right_free = this.position.some(coords => {
+            let newLocation = [coords[0], coords[1] + 1];
+            let coord_used = tetris.playground.playgroundMap[newLocation[0]][newLocation[1]] !== undefined;
+            let inThisFigure = arrayInArray(newLocation, this.position);
+            return !(coord_used && inThisFigure);
+        });
+        return !on_edge && right_free;
     }
 
     moveRight() {
         let falling = this.state === "falling";
-        let movable_right = !this.at_right_edge();
-        let newPosition = [];
-        let not_used = true;
+        let movable_right = this.canBeMovedRight();
         if (falling && movable_right && !tetris.paused) {
             this.position.forEach(position => {
-                let newLocation = [position[0], position[1] + 1];
-                if (tetris.playground.playgroundMap[newLocation[0]][newLocation[1]] !== undefined && !arrayInArray(newLocation, this.position)) {
-                    not_used = false;
-                }
-                newPosition.push(newLocation);
+                position[1] += 1;
             });
         }
-        console.log(falling);
-        console.log(movable_right);
-        console.log(not_used);
-        if (falling && movable_right && not_used) {
-            this.position = newPosition;
-        }
+
         tetris.update_playground();
         console.log("moving right");
     }
 
     moveLeft() {
         let falling = this.state === "falling";
-        let movable_left = !this.at_left_edge();
-        let newPosition = [];
-        let not_used = true;
+        let movable_left = this.canBeMovedLeft();
         if (falling && movable_left && !tetris.paused) {
             this.position.forEach(position => {
-                let newLocation = [position[0], position[1] - 1];
-                if (tetris.playground.playgroundMap[newLocation[0]][newLocation[1]] !== undefined && !arrayInArray(newLocation, this.position)) {
-                    not_used = false;
-                    console.log(tetris.playground.playgroundMap[newLocation[0]][newLocation[1]]);
-                }
-                newPosition.push(newLocation);
+                position[1] -= 1;
             });
         }
-        console.log(falling);
-        console.log(movable_left);
-        console.log(not_used);
-        if (falling && movable_left && not_used) {
-            this.position = newPosition;
-        }
+
         tetris.update_playground();
         console.log("moving left");
     }
