@@ -18,7 +18,7 @@ class Tile {
         tetris.update_playground();
         if (moved && !this.position.every(can_be_moved_down)) {
             this.state = STATES.STATIC;
-            playground.static_coords.push(...this.position);
+            tetris.playground.static_coords.push(...this.position);
         }
 
         console.log(tetris.static_coords);

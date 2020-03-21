@@ -4,7 +4,8 @@ class Tetris {
         this.gameInterval = setInterval(gameLoop, 1000);
         this.paused = false;
         this.score = 0;
-        playground.render(this.objects);
+        this.playground = createPlayground();
+        this.playground.render(this.objects);
     }
 
     /**
@@ -22,8 +23,8 @@ class Tetris {
     }
 
     update_playground() {
-        playground = createPlayground();
-        playground.render(this.objects);
+        this.playground = createPlayground();
+        this.playground.render(this.objects);
     }
 }
 
@@ -31,20 +32,20 @@ function gameLoop() {
     getCurrentObject().moveDown();
     tetris.objects.forEach(object => {
         if (object.state === STATES.STATIC) {
-            playground.static_coords.push(...object.position);
+            tetris.playground.static_coords.push(...object.position);
         }
     });
-    let ready_map = playground.getPlaygroundReadyMap();
+    let ready_map = tetris.playground.getPlaygroundReadyMap();
     let row_number;
     if (ready_map.some((x) => x)) {
-        row_number = playground.checkRowCompleted(ready_map);
+        row_number = tetris.playground.checkRowCompleted(ready_map);
     }
     if (row_number !== undefined) {
-        playground.destroyCompletedRow(row_number, tetris);
+        tetris.playground.destroyCompletedRow(row_number, tetris);
         console.log(tetris.score);
         tetris.score += LINE_PRICE;
         console.log(tetris.score);
-        playground.setScore(tetris.score);
+        tetris.playground.setScore(tetris.score);
     }
 }
 

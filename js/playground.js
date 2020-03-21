@@ -121,5 +121,5 @@ function createPlayground(height = 10, width = 5) {
     return new Playground(height, width);
 }
 
-var playground = createPlayground();
+
 

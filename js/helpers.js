@@ -6,12 +6,12 @@ function can_be_moved_down(coordinates) {
     let in_borders = coordinates[0] >= 0;
     let below_cell_empty = false;
     let above_upper_border = coordinates[0] >= BOARD.HEIGHT;
-    if (playground.playgroundMap[coordinates[0] - 1] === undefined) {
+    if (tetris.playground.playgroundMap[coordinates[0] - 1] === undefined) {
         console.log(`undefined in ${coordinates[0] - 1}`);
     }
     let below_cell_exists = coordinates[0] - 1 >= 0;
     if (in_borders && !above_upper_border && below_cell_exists) {
-        below_cell_empty = playground.playgroundMap[coordinates[0] - 1][coordinates[1]] === undefined;
+        below_cell_empty = tetris.playground.playgroundMap[coordinates[0] - 1][coordinates[1]] === undefined;
     } else if (above_upper_border) {
         below_cell_empty = true;
     }
@@ -21,7 +21,7 @@ function can_be_moved_down(coordinates) {
     return in_borders && (below_cell_empty || self_overlapped);
 }
 
-function arrayInArray(sub, main = playground.static_coords) {
+function arrayInArray(sub, main = tetris.playground.static_coords) {
     let not_equal = 0;
     for (let i = 0; i < main.length; i++) {
         const element = main[i];
