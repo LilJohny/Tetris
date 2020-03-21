@@ -41,6 +41,7 @@ class tileJ extends Tile {
         this.center = 1;
         this.color = "yellow";
     }
+
     rotate() {
         console.log("rotating");
         let new_position = [];
@@ -209,7 +210,7 @@ class tileS extends Tile {
 class tileT extends Tile {
     constructor(coordinates, figure_state) {
         super("T", coordinates, figure_state);
-        this.center = this.position[2];
+        this.center = 1;
         this.color = "purple";
     }
 
@@ -239,15 +240,44 @@ class tileT extends Tile {
     }
 
     rotate() {
+        console.log("rotating");
         let new_position = [];
-        for (let i = 0; i < this.position.length; i++) {
+        let correct_rotation = true;
+
+        for (let i = 0; i < this.position.length - 1; i++) {
             const element = this.position[i];
-            const new_element = [element[1], element[0]];
+            let new_element;
+            console.log(`current_rotation ${this.current_rotation}`);
+            if (this.current_rotation % 2 === 0) {
+                new_element = [element[0] + (this.center - i), element[1] + (this.center - i)];
+            } else {
+                new_element = [element[0] - (this.center - i), element[1] - (this.center - i)];
+            }
+            if (!correct_side_borders(new_element)) {
+                correct_rotation = false;
+                break;
+            }
             new_position.push(new_element);
         }
-        this.position = new_position;
+        let transformations = {
+            0: (coords) => [coords[0] + 1, coords[1] - 1],
+            1: (coords) => [coords[0] + 1, coords[1] + 1],
+            2: (coords) => [coords[0] - 1, coords[1] + 1],
+            3: (coords) => [coords[0] - 1, coords[1] - 1]
+        };
+        let last_transformation = transformations[this.current_rotation];
+        let last_coords = last_transformation(this.position[this.position.length - 1]);
+        console.log(`last_coords: ${last_coords}`);
+        if (!correct_side_borders(last_coords)) {
+            correct_rotation = false;
+        }
+        new_position.push(last_coords);
+        this.current_rotation = this.current_rotation === 3 ? 0 : this.current_rotation + 1;
+        console.log(new_position);
+        if (correct_rotation) {
+            this.position = new_position;
+        }
         tetris.update_playground();
-        console.log("rotating");
     }
 }
 
