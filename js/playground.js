@@ -60,8 +60,8 @@ class Playground {
 }
 
 
-function createPlayground(){
-    return new Playground(10,5);
+function createPlayground(height=10, width=5){
+    return new Playground(height,width);
 }
 var playground = createPlayground();
 

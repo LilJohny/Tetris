@@ -22,10 +22,6 @@ function can_be_moved_down(coordinates) {
 }
 
 function arrayInArray(sub, main = tetris.static_coords) {
-    console.log("static_coords");
-    console.log(tetris.static_coords);
-    console.log("sub");
-    console.log(sub);
     let not_equal = 0;
     for (let i = 0; i < main.length; i++) {
         const element = main[i];
