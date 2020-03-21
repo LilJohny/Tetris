@@ -6,6 +6,7 @@ class Tetris {
         this.score = 0;
         this.playground = new Playground();
         this.playground.render(this.objects);
+
     }
 
     /**
@@ -30,11 +31,13 @@ class Tetris {
 
 function gameLoop() {
     getCurrentObject().moveDown();
+    //below is temporary
     tetris.objects.forEach(object => {
         if (object.state === STATES.STATIC) {
             tetris.playground.static_coords.push(...object.position);
         }
     });
+    //end of temporary block
     let ready_map = tetris.playground.getPlaygroundReadyMap();
     let row_number;
     if (ready_map.some((x) => x)) {
