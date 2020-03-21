@@ -4,7 +4,7 @@ class Tetris {
         this.gameInterval = setInterval(gameLoop, 1000);
         this.paused = false;
         this.score = 0;
-        this.playground = createPlayground();
+        this.playground = new Playground();
         this.playground.render(this.objects);
     }
 
@@ -23,7 +23,7 @@ class Tetris {
     }
 
     update_playground() {
-        this.playground = createPlayground();
+        this.playground = new Playground();
         this.playground.render(this.objects);
     }
 }

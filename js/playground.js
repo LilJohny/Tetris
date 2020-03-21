@@ -1,5 +1,5 @@
 class Playground {
-    constructor(height, width) {
+    constructor(height = 10, width = 5) {
         this.playgroundMap = new Array(height).fill().map(el => (new Array(width).fill()));
         this.static_coords = [];
     }
@@ -115,11 +115,3 @@ class Playground {
         return fl === true ? row_number : undefined;
     }
 }
-
-
-function createPlayground(height = 10, width = 5) {
-    return new Playground(height, width);
-}
-
-
-
