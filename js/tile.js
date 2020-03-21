@@ -35,8 +35,22 @@ class Tile {
     moveRight() {
         let falling = this.state === "falling";
         let movable_right = !this.at_right_edge();
+        let newPosition = [];
+        let not_used = true;
         if (falling && movable_right && !tetris.paused) {
-            this.position.forEach(position => position[1] += 1);
+            this.position.forEach(position => {
+                let newLocation = [position[0], position[1] + 1];
+                if (tetris.playground.playgroundMap[newLocation[0]][newLocation[1]] !== undefined && !arrayInArray(newLocation, this.position)) {
+                    not_used = false;
+                }
+                newPosition.push(newLocation);
+            });
+        }
+        console.log(falling);
+        console.log(movable_right);
+        console.log(not_used);
+        if (falling && movable_right && not_used) {
+            this.position = newPosition;
         }
         tetris.update_playground();
         console.log("moving right");
@@ -45,8 +59,23 @@ class Tile {
     moveLeft() {
         let falling = this.state === "falling";
         let movable_left = !this.at_left_edge();
+        let newPosition = [];
+        let not_used = true;
         if (falling && movable_left && !tetris.paused) {
-            this.position.forEach(position => position[1] -= 1);
+            this.position.forEach(position => {
+                let newLocation = [position[0], position[1] - 1];
+                if (tetris.playground.playgroundMap[newLocation[0]][newLocation[1]] !== undefined && !arrayInArray(newLocation, this.position)) {
+                    not_used = false;
+                    console.log(tetris.playground.playgroundMap[newLocation[0]][newLocation[1]]);
+                }
+                newPosition.push(newLocation);
+            });
+        }
+        console.log(falling);
+        console.log(movable_left);
+        console.log(not_used);
+        if (falling && movable_left && not_used) {
+            this.position = newPosition;
         }
         tetris.update_playground();
         console.log("moving left");
