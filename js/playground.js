@@ -57,6 +57,20 @@ class Playground {
         let playgroundNode = document.getElementById("score");
         playgroundNode.innerText = `Your Score: ${score}`;
     }
+    removeRow(rowInd, tetrisObj) {
+        tetrisObj.objects.forEach(element => {
+            element.position = element.position.filter(coords => coords[0] !== rowInd);
+        });
+        console.log("objects: ");
+        console.log(tetris.objects);
+        console.log(getCurrentObject());
+        tetrisObj.update_playground();
+        for (let i = 0; i < tetrisObj.objects.length; i++) {
+            const element = tetrisObj.objects[i];
+            element.position.forEach(coords => coords[0] -= 1);
+        }
+        tetrisObj.update_playground();
+    }
 }
 
 

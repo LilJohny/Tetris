@@ -45,30 +45,16 @@ function gameLoop() {
         }
         console.log(coords_to_remove.every(arrayInArray));
         if(coords_to_remove.every(arrayInArray)) {
-            removeRow(row_number);
+            playground.removeRow(row_number, tetris);
         }
         tetris.score += LINE_PRICE;
         playground.setScore(tetris.score);
     }
 }
 
-function removeRow(rowInd) {
-    tetris.objects.forEach(element => {
-        element.position = element.position.filter(coords => coords[0] !== rowInd);
-    });
-    console.log("objects: ");
-    console.log(tetris.objects);
-    console.log(getCurrentObject());
-    tetris.update_playground();
-    for (let i = 0; i < tetris.objects.length; i++) {
-        const element = tetris.objects[i];
-        element.position.forEach(coords => coords[0] -= 1);
-    }
-    tetris.update_playground();
-}
-
 
 var tetris = new Tetris(objects);
+
 function getTetris() {
     return tetris;
 }
