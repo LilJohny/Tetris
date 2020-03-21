@@ -29,7 +29,6 @@ class Tetris {
 
     update_playground() {
         playground = createPlayground();
-        //renderPositions(this.objects);
         playground.render(this.objects);
     }
 }
