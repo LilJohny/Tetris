@@ -4,12 +4,6 @@ class Tetris {
         this.gameInterval = setInterval(gameLoop, 1000);
         this.paused = false;
         this.score = 0;
-        this.static_coords = [];
-        this.objects.forEach(object => {
-            if (object.state === STATES.STATIC) {
-                this.static_coords.push(...object.position);
-            }
-        });
         playground.render(this.objects);
     }
 
@@ -35,18 +29,21 @@ class Tetris {
 
 function gameLoop() {
     getCurrentObject().moveDown();
-    let ready_map = getPlaygroundReadyMap();
+    tetris.objects.forEach(object => {
+        if (object.state === STATES.STATIC) {
+            playground.static_coords.push(...object.position);
+        }
+    });
+    let ready_map = playground.getPlaygroundReadyMap();
+    let row_number;
     if (ready_map.some((x) => x)) {
-        let row_number = ready_map.indexOf(true);
-        let coords_to_remove = [];
-        for (let i = 0; i <=BOARD.RIGHT_EDGE;++i){
-            coords_to_remove.push([row_number, i]);
-        }
-        console.log(coords_to_remove.every(arrayInArray));
-        if(coords_to_remove.every(arrayInArray)) {
-            playground.removeRow(row_number, tetris);
-        }
+        row_number = playground.checkRowCompleted(ready_map);
+    }
+    if (row_number !== undefined) {
+        playground.destroyCompletedRow(row_number, tetris);
+        console.log(tetris.score);
         tetris.score += LINE_PRICE;
+        console.log(tetris.score);
         playground.setScore(tetris.score);
     }
 }
@@ -57,7 +54,14 @@ var tetris = new Tetris(objects);
 function getTetris() {
     return tetris;
 }
-const EVENT_HANDLERS = { [KEYS.UP]: [getCurrentObject().rotate, getCurrentObject], [KEYS.DOWN]: [getCurrentObject().moveDown, getCurrentObject], [KEYS.LEFT]: [getCurrentObject().moveLeft, getCurrentObject], [KEYS.RIGHT]: [getCurrentObject().moveRight, getCurrentObject], [KEYS.SPACE]: [tetris.pauseGame, getTetris] };
+
+const EVENT_HANDLERS = {
+    [KEYS.UP]: [getCurrentObject().rotate, getCurrentObject],
+    [KEYS.DOWN]: [getCurrentObject().moveDown, getCurrentObject],
+    [KEYS.LEFT]: [getCurrentObject().moveLeft, getCurrentObject],
+    [KEYS.RIGHT]: [getCurrentObject().moveRight, getCurrentObject],
+    [KEYS.SPACE]: [tetris.pauseGame, getTetris]
+};
 
 
 // TODO Random rotation on create

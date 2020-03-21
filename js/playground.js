@@ -1,7 +1,9 @@
 class Playground {
     constructor(height, width) {
         this.playgroundMap = new Array(height).fill().map(el => (new Array(width).fill()));
+        this.static_coords = [];
     }
+
     /**
      * render DOM nodes according to the playground definition
      */
@@ -17,11 +19,13 @@ class Playground {
             playgroundNode.appendChild(rowNode);
         }
     }
+
     renderPositions(objects) {
         objects.forEach(object => {
             object.position.forEach(([rowIndex, cellIndex]) => {
                 if (this.playgroundMap[rowIndex] === undefined) {
                     console.log(`undefined row ${rowIndex}`);
+                    console.log(object);
                 }
                 if (rowIndex <= BOARD.HEIGHT) {
                     this.playgroundMap[rowIndex][cellIndex] = object.color;
@@ -29,6 +33,7 @@ class Playground {
             });
         });
     }
+
     /**
      *  Creates <div class="row" id="row-9">
      * @param  {number} rowIndex Index of row to create
@@ -39,6 +44,7 @@ class Playground {
         rowNode.setAttribute("class", "row");
         return rowNode;
     }
+
     /**
      *  Creates <div class="cell cell-1">1</div>
      * @param  {number} cellIndex INdex of cell to create
@@ -49,6 +55,7 @@ class Playground {
         cellNode.setAttribute("class", `cell cell-${cellIndex} ${color}`);
         return cellNode;
     }
+
     /**
      * Displays score
      * @param  {number} score Score that will be displayed
@@ -57,25 +64,62 @@ class Playground {
         let playgroundNode = document.getElementById("score");
         playgroundNode.innerText = `Your Score: ${score}`;
     }
-    removeRow(rowInd, tetrisObj) {
+
+    destroyCompletedRow(rowInd, tetrisObj) {
         tetrisObj.objects.forEach(element => {
             element.position = element.position.filter(coords => coords[0] !== rowInd);
         });
-        console.log("objects: ");
-        console.log(tetris.objects);
-        console.log(getCurrentObject());
         tetrisObj.update_playground();
         for (let i = 0; i < tetrisObj.objects.length; i++) {
             const element = tetrisObj.objects[i];
-            element.position.forEach(coords => coords[0] -= 1);
+            for (let i = 0; i < element.position.length; i++) {
+                let coords = element.position[i];
+                if (coords[0] < rowInd) {
+                    coords -= 1;
+                }
+            }
         }
         tetrisObj.update_playground();
+    }
+
+    getPlaygroundReadyMap() {
+        let result = [];
+        for (let i = 0; i < this.playgroundMap.length; i++) {
+            const row = this.playgroundMap[i];
+            let fl = true;
+            for (let i = 0; i < row.length; i++) {
+                const element = row[i];
+                if (element === undefined) {
+                    fl = false;
+                    break;
+                }
+            }
+            result.push(fl);
+        }
+        return result;
+    }
+
+    checkRowCompleted(ready_map) {
+        let row_number = ready_map.indexOf(true);
+        let coords_to_remove = [];
+        for (let i = 0; i <= BOARD.RIGHT_EDGE; ++i) {
+            coords_to_remove.push([row_number, i]);
+        }
+        let fl = true;
+        for (let i = 0; i < coords_to_remove.length; ++i) {
+            if (!arrayInArray(coords_to_remove[i])) {
+                fl = false;
+                break;
+            }
+        }
+        return fl === true ? row_number : undefined;
     }
 }
 
 
-function createPlayground(height=10, width=5){
-    return new Playground(height,width);
+function createPlayground(height = 10, width = 5) {
+    return new Playground(height, width);
 }
+
 var playground = createPlayground();
 

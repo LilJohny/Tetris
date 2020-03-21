@@ -21,7 +21,7 @@ function can_be_moved_down(coordinates) {
     return in_borders && (below_cell_empty || self_overlapped);
 }
 
-function arrayInArray(sub, main = tetris.static_coords) {
+function arrayInArray(sub, main = playground.static_coords) {
     let not_equal = 0;
     for (let i = 0; i < main.length; i++) {
         const element = main[i];
@@ -40,19 +40,3 @@ function arrayInArray(sub, main = tetris.static_coords) {
     return not_equal !== main.length;
 }
 
-function getPlaygroundReadyMap() {
-    let result = [];
-    for (let i = 0; i < playground.playgroundMap.length; i++) {
-        const row = playground.playgroundMap[i];
-        let fl = true;
-        for (let i = 0; i < row.length; i++) {
-            const element = row[i];
-            if (element === undefined) {
-                fl = false;
-                break;
-            }
-        }
-        result.push(fl);
-    }
-    return result;
-}
