@@ -6,24 +6,6 @@ class tileI extends Tile {
         this.center = 2;
         this.color = "green";
     }
-
-    static rotations() {
-        return [
-            [
-                [0, 0, 0, 0],
-                [0, 0, 0, 0],
-                [1, 1, 1, 1],
-                [0, 0, 0, 0]
-            ],
-            [
-                [0, 0, 1, 0],
-                [0, 0, 1, 0],
-                [0, 0, 1, 0],
-                [0, 0, 1, 0]
-            ]
-        ];
-    }
-
     rotate() {
         console.log("rotating");
         let new_position = [];
@@ -37,7 +19,7 @@ class tileI extends Tile {
             } else {
                 new_element = [element[0] - (this.center - i), element[1] - (this.center - i)];
             }
-            if (new_element[1] >= BOARD.RIGHT_EDGE || new_element[1] < 0) {
+            if (new_element[1] > BOARD.RIGHT_EDGE || new_element[1] < 0) {
                 correct_rotation = false;
                 break;
             }
