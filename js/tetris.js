@@ -4,6 +4,12 @@ class Tetris {
         this.gameInterval = setInterval(gameLoop, 1000);
         this.paused = false;
         this.score = 0;
+        this.static_coords = [];
+        this.objects.forEach(object => {
+            if (object.state === STATES.STATIC) {
+                this.static_coords.push(...object.position);
+            }
+        });
         renderPlayground(this.objects);
     }
 
@@ -33,9 +39,15 @@ function gameLoop() {
     let ready_map = getPlaygroundReadyMap();
     if (ready_map.some((x) => x)) {
         let row_number = ready_map.indexOf(true);
-        removeRow(row_number);
+        let coords_to_remove = [];
+        for (let i = 0; i <=BOARD.RIGHT_EDGE;++i){
+            coords_to_remove.push([row_number, i]);
+        }
+        console.log(coords_to_remove.every(arrayInArray));
+        if(coords_to_remove.every(arrayInArray)) {
+            removeRow(row_number);
+        }
         tetris.score += LINE_PRICE;
-        console.log(`score ${tetris.score}`);
         setScore(tetris.score);
     }
 }

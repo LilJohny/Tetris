@@ -5,6 +5,7 @@ class tileI extends Tile {
         this.spawn_location = [0, BOARD.RIGHT_EDGE / 2];
         this.center = 2;
     }
+
     static rotations() {
         return [
             [
@@ -21,6 +22,7 @@ class tileI extends Tile {
             ]
         ];
     }
+
     rotate() {
         console.log("rotating");
         let new_position = [];
@@ -29,10 +31,10 @@ class tileI extends Tile {
             const element = this.position[i];
             let new_element;
             console.log(`current_rotation ${this.current_rotation}`);
-            if (this.current_rotation == 0) {
-                new_element = [element[0] + 1 * (this.center - i), element[1] + 1 * (this.center - i)];
+            if (this.current_rotation === 0) {
+                new_element = [element[0] + (this.center - i), element[1] + (this.center - i)];
             } else {
-                new_element = [element[0] - 1 * (this.center - i), element[1] - 1 * (this.center - i)];
+                new_element = [element[0] - (this.center - i), element[1] - (this.center - i)];
             }
             if (new_element[1] >= BOARD.RIGHT_EDGE || new_element[1] < 0) {
                 correct_rotation = false;
@@ -55,6 +57,7 @@ class tileJ extends Tile {
         super("J", coordinates, figure_state);
         this.center = this.position[2];
     }
+
     static rotations() {
         return [
             [
@@ -79,6 +82,7 @@ class tileJ extends Tile {
             ]
         ];
     }
+
     rotate() {
         let new_position = [];
         for (let i = 0; i < this.position.length; i++) {
@@ -97,6 +101,7 @@ class tileL extends Tile {
         super("L", coordinates, figure_state);
         this.center = this.position[1];
     }
+
     static rotations() {
         return [
             [
@@ -121,6 +126,7 @@ class tileL extends Tile {
             ]
         ];
     }
+
     rotate() {
         let new_position = [];
         for (let i = 0; i < this.position.length; i++) {
@@ -140,6 +146,7 @@ class tileO extends Tile {
         this.spawn_location = [0, BOARD.RIGHT_EDGE / 2];
         this.center = this.position[4];
     }
+
     static rotations() {
         return [
             [
@@ -148,6 +155,7 @@ class tileO extends Tile {
             ]
         ];
     }
+
     rotate() {
         let new_position = [];
         for (let i = 0; i < this.position.length; i++) {
@@ -166,6 +174,7 @@ class tileS extends Tile {
         super("S", coordinates, figure_state);
         this.center = this.position[3];
     }
+
     static rotations() {
         return [
             [
@@ -180,6 +189,7 @@ class tileS extends Tile {
             ]
         ];
     }
+
     rotate() {
         let new_position = [];
         for (let i = 0; i < this.position.length; i++) {
@@ -198,6 +208,7 @@ class tileT extends Tile {
         super("T", coordinates, figure_state);
         this.center = this.position[2];
     }
+
     static rotations() {
         return [
             [
@@ -222,6 +233,7 @@ class tileT extends Tile {
             ]
         ];
     }
+
     rotate() {
         let new_position = [];
         for (let i = 0; i < this.position.length; i++) {
@@ -240,6 +252,7 @@ class tileZ extends Tile {
         super("Z", coordinates, figure_state);
         this.center = this.position[2];
     }
+
     static rotations() {
         return [
             [
@@ -254,6 +267,7 @@ class tileZ extends Tile {
             ]
         ];
     }
+
     rotate() {
         let new_position = [];
         for (let i = 0; i < this.position.length; i++) {

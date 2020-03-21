@@ -18,28 +18,34 @@ function can_be_moved_down(coordinates) {
         below_cell_empty = true;
     }
     if (below_cell_exists) {
-        self_overlapped = array_in_array(same_figure, [coordinates[0] - 1, coordinates[1]]);
+        self_overlapped = arrayInArray( [coordinates[0] - 1, coordinates[1]], same_figure);
     }
     return in_borders && (below_cell_empty || self_overlapped);
 }
-function array_in_array(main, sub) {
+
+function arrayInArray(sub, main = tetris.static_coords) {
+    console.log("static_coords");
+    console.log(tetris.static_coords);
+    console.log("sub");
+    console.log(sub);
     let not_equal = 0;
     for (let i = 0; i < main.length; i++) {
         const element = main[i];
-        if (element.length != sub.length) {
+        if (element.length !== sub.length) {
             not_equal += 1;
             continue;
         }
         for (let j = 0; j < element.length; j++) {
             const sub_element = element[j];
-            if (sub_element != sub[j]) {
+            if (sub_element !== sub[j]) {
                 not_equal += 1;
                 break;
             }
         }
     }
-    return not_equal != main.length;
+    return not_equal !== main.length;
 }
+
 function getPlaygroundReadyMap() {
     let result = [];
     for (let i = 0; i < playground.length; i++) {
