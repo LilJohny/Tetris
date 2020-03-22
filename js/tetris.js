@@ -27,8 +27,8 @@ class Tetris {
     createNewTile() {
         let tileType = getRandomValue(figureType);
         let position = (initialPositions[tileType])[0];
-        console.log([...position]);
-        let tile = new tileType(position, STATES.FALLING);
+        let actualPosition = JSON.parse(JSON.stringify(position));
+        let tile = new tileType(actualPosition, STATES.FALLING);
         this.objects.push(tile);
     }
 
