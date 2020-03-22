@@ -22,11 +22,11 @@ class Tile {
         }
     }
 
-    canBeMovedLeft() {
-        let on_edge = this.position.some(coords => coords[1] === BOARD.LEFT_EDGE);
+    canBeMoved(move, border) {
+        let on_edge = this.position.some(coords => coords[1] === border);
         if (!on_edge) {
-            let left_free = this.position.every(coords => {
-                let newLocation = [coords[0], coords[1] - 1];
+            let border_free = this.position.every(coords => {
+                let newLocation = [coords[0] + move[0], coords[1] + move[1]];
                 if (tetris.playground.playgroundMap[newLocation[0]] === undefined) {
                     console.log(`undefined ${newLocation[0]}`);
                 }
@@ -34,9 +34,13 @@ class Tile {
                 let inThisFigure = arrayInArray(newLocation, this.position);
                 return !(coord_used && !inThisFigure);
             });
-            return left_free;
+            return border_free;
         }
         return false;
+    }
+
+    canBeMovedLeft() {
+        return this.canBeMoved([0, -1], BOARD.LEFT_EDGE);
     }
 
     canBeMovedRight() {

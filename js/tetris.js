@@ -29,7 +29,16 @@ class Tetris {
         let position = (initialPositions[tileType])[0];
         let actualPosition = JSON.parse(JSON.stringify(position));
         let tile = new tileType(actualPosition, STATES.FALLING);
+        if (actualPosition.some((coords) => this.playground.playgroundMap[coords[0]][coords[1]] !== undefined)) {
+            this.gameOver();
+        }
+        let rotations = getRandomValue(ROTATION_NUMBER);
         this.objects.push(tile);
+    }
+
+    gameOver() {
+        this.pauseGame();
+        this.playground.gameOver();
     }
 
     update_playground() {
@@ -79,5 +88,4 @@ let EVENT_HANDLERS = {
 
 
 // TODO Random rotation on create
-// TODO Game over when can`t create figure
 // TODO Refactoring

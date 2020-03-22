@@ -6,3 +6,4 @@ const BOARD = {HEIGHT: 9, RIGHT_EDGE: 4, LEFT_EDGE: 0};
 
 const LINE_PRICE = 100;
 
+const ROTATION_NUMBER = [1, 2, 3, 4];

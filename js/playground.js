@@ -95,6 +95,11 @@ class Playground {
         return result;
     }
 
+    gameOver() {
+        let gameStateNode = document.getElementById("game_state");
+        gameStateNode.innerText = "Game Over";
+    }
+
     checkRowCompleted(ready_map) {
         let row_number = ready_map.indexOf(true);
         let coords_to_remove = [];
