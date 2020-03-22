@@ -1,4 +1,6 @@
-var getCurrentObject = () => tetris.objects.find(object => object.state === STATES.FALLING);
+function getCurrentObject() {
+    return tetris.objects.find(object => object.state === STATES.FALLING);
+}
 
 function can_be_moved_down(coordinates) {
     let same_figure = arguments[2];
@@ -14,7 +16,7 @@ function can_be_moved_down(coordinates) {
         below_cell_empty = true;
     }
     if (below_cell_exists) {
-        self_overlapped = arrayInArray( [coordinates[0] - 1, coordinates[1]], same_figure);
+        self_overlapped = arrayInArray([coordinates[0] - 1, coordinates[1]], same_figure);
     }
     return in_borders && (below_cell_empty || self_overlapped);
 }

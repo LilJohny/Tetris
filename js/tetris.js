@@ -11,19 +11,6 @@ class Tetris {
         this.playground.render(this.objects);
     }
 
-    /**
-     * Pauses game
-     */
-    pauseGame() {
-        if (!this.paused) {
-            this.paused = true;
-            clearInterval(this.gameInterval);
-        } else {
-            this.gameInterval = setInterval(gameLoop, 1000);
-            this.paused = false;
-        }
-    }
-
     createNewTile() {
         let tileType = getRandomValue(figureType);
         let position = (initialPositions[tileType])[0];
@@ -37,15 +24,30 @@ class Tetris {
         this.update_playground();
     }
 
+    update_playground() {
+        this.playground = new Playground();
+        this.playground.render(this.objects);
+    }
+
+    /**
+     * Pauses game
+     */
+    pauseGame() {
+        if (!this.paused) {
+            this.paused = true;
+            clearInterval(this.gameInterval);
+        } else {
+            this.gameInterval = setInterval(gameLoop, 1000);
+            this.paused = false;
+        }
+    }
+
     gameOver() {
         this.pauseGame();
         this.playground.gameOver();
     }
 
-    update_playground() {
-        this.playground = new Playground();
-        this.playground.render(this.objects);
-    }
+
 }
 
 function gameLoop() {
@@ -74,13 +76,6 @@ function getTetris() {
     return tetris;
 }
 
-let EVENT_HANDLERS = {
-    [KEYS.UP]: [getCurrentObject().rotate, getCurrentObject],
-    [KEYS.DOWN]: [getCurrentObject().moveDown, getCurrentObject],
-    [KEYS.LEFT]: [getCurrentObject().moveLeft, getCurrentObject],
-    [KEYS.RIGHT]: [getCurrentObject().moveRight, getCurrentObject],
-    [KEYS.SPACE]: [tetris.pauseGame, getTetris]
-};
 
 
 // TODO Random rotation on create
