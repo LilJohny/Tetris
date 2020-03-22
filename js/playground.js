@@ -23,7 +23,7 @@ class Playground {
     renderPositions(objects) {
         objects.forEach(object => {
             object.position.forEach(([rowIndex, cellIndex]) => {
-                if (rowIndex <= BOARD.HEIGHT) {
+                if (this.playgroundMap[rowIndex] !== undefined) {
                     this.playgroundMap[rowIndex][cellIndex] = object.color;
                 }
             });

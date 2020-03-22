@@ -5,8 +5,10 @@ class Tetris {
         this.paused = false;
         this.score = 0;
         this.playground = new Playground();
+        if (initial_objects.length === 0) {
+            this.createNewTile();
+        }
         this.playground.render(this.objects);
-
     }
 
     /**
@@ -24,7 +26,8 @@ class Tetris {
 
     createNewTile() {
         let tileType = getRandomValue(figureType);
-        let position = getRandomValue(initialPositions[tileType]);
+        let position = (initialPositions[tileType])[0];
+        console.log([...position]);
         let tile = new tileType(position, STATES.FALLING);
         this.objects.push(tile);
     }
@@ -36,9 +39,11 @@ class Tetris {
 }
 
 function gameLoop() {
+    console.log(tetris.objects.length);
     getCurrentObject().moveDown();
-    console.log(getCurrentObject().type);
-    console.log(tetris.objects);
+    if (getCurrentObject() === undefined) {
+        tetris.createNewTile();
+    }
     //below is temporary
     tetris.objects.forEach(object => {
         if (object.state === STATES.STATIC) {
@@ -59,7 +64,7 @@ function gameLoop() {
 }
 
 
-var tetris = new Tetris(objects);
+var tetris = new Tetris([]);
 
 function getTetris() {
     return tetris;

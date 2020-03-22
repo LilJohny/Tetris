@@ -1,4 +1,4 @@
-var getCurrentObject = () => objects.find(object => object.state === STATES.FALLING);
+var getCurrentObject = () => tetris.objects.find(object => object.state === STATES.FALLING);
 
 function can_be_moved_down(coordinates) {
     let same_figure = arguments[2];
