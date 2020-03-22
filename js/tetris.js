@@ -22,6 +22,13 @@ class Tetris {
         }
     }
 
+    createNewTile() {
+        let tileType = getRandomValue(figureType);
+        let position = getRandomValue(initialPositions[tileType]);
+        let tile = new tileType(position, STATES.FALLING);
+        this.objects.push(tile);
+    }
+
     update_playground() {
         this.playground = new Playground();
         this.playground.render(this.objects);
@@ -30,6 +37,8 @@ class Tetris {
 
 function gameLoop() {
     getCurrentObject().moveDown();
+    console.log(getCurrentObject().type);
+    console.log(tetris.objects);
     //below is temporary
     tetris.objects.forEach(object => {
         if (object.state === STATES.STATIC) {
@@ -56,7 +65,7 @@ function getTetris() {
     return tetris;
 }
 
-const EVENT_HANDLERS = {
+let EVENT_HANDLERS = {
     [KEYS.UP]: [getCurrentObject().rotate, getCurrentObject],
     [KEYS.DOWN]: [getCurrentObject().moveDown, getCurrentObject],
     [KEYS.LEFT]: [getCurrentObject().moveLeft, getCurrentObject],
@@ -67,5 +76,4 @@ const EVENT_HANDLERS = {
 
 // TODO Random rotation on create
 // TODO Game over when can`t create figure
-// TODO Figures creation
 // TODO Refactoring

@@ -8,6 +8,7 @@ class tileI extends Tile {
     }
 
     rotate() {
+        console.log("Rotate I");
         let new_position = [];
         let correct_rotation = true;
         for (let i = 0; i < this.position.length; i++) {
@@ -40,6 +41,7 @@ class tileJ extends Tile {
     }
 
     rotate() {
+        console.log("Rotate J");
         let new_position = [];
         let correct_rotation = true;
 
@@ -85,6 +87,7 @@ class tileL extends Tile {
     }
 
     rotate() {
+        console.log("Rotate L");
         let new_position = [];
         let correct_rotation = true;
 
@@ -131,6 +134,7 @@ class tileO extends Tile {
     }
 
     rotate() {
+        console.log("Rotate O");
         tetris.update_playground();
     }
 }
@@ -144,6 +148,7 @@ class tileS extends Tile {
 
 
     rotate() {
+        console.log("Rotate S");
         let new_position = [];
         let correct_rotation = true;
         let transformationZero = {
@@ -190,6 +195,7 @@ class tileT extends Tile {
     }
 
     rotate() {
+        console.log("Rotate T");
         let new_position = [];
         let correct_rotation = true;
 
@@ -234,22 +240,9 @@ class tileZ extends Tile {
         this.color = "aqua";
     }
 
-    static rotations() {
-        return [
-            [
-                [0, 0, 0],
-                [1, 1, 0],
-                [0, 1, 1]
-            ],
-            [
-                [0, 0, 1],
-                [0, 1, 1],
-                [0, 1, 0]
-            ]
-        ];
-    }
 
     rotate() {
+        console.log("Rotate Z");
         let new_position = [];
         let correct_rotation = true;
         let transformationZero = {
@@ -289,3 +282,13 @@ class tileZ extends Tile {
 
 }
 
+var figureType = [tileL, tileZ, tileI, tileJ, tileO, tileS, tileT];
+var initialPositions = {
+    [tileL]: [[[9, 0], [9, 1], [9, 2], [8, 0]]],
+    [tileZ]: [[[9, 2], [9, 3], [8, 3], [8, 4]]],
+    [tileI]: [[[9, 0], [9, 1], [9, 2], [9, 3]]],
+    [tileJ]: [[[9, 0], [9, 1], [9, 2], [8, 2]]],
+    [tileO]: [[[9, 2], [9, 3], [8, 2], [8, 3]]],
+    [tileS]: [[[9, 2], [9, 3], [8, 1], [8, 2]]],
+    [tileT]: [[[9, 0], [9, 1], [9, 2], [8, 1]]]
+};

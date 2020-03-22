@@ -39,8 +39,9 @@ function arrayInArray(sub, main = tetris.playground.static_coords) {
 }
 
 function correct_side_borders(coords) {
-    if (coords[1] > BOARD.RIGHT_EDGE || coords[1] < 0) {
-        return false;
-    }
-    return true;
+    return !(coords[1] > BOARD.RIGHT_EDGE || coords[1] < 0);
+}
+
+function getRandomValue(array) {
+    return array[Math.floor(Math.random() * array.length)];
 }

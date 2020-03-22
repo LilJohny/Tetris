@@ -18,6 +18,7 @@ class Tile {
         if (moved && !this.position.every(can_be_moved_down)) {
             this.state = STATES.STATIC;
             tetris.playground.static_coords.push(...this.position);
+            tetris.createNewTile();
         }
     }
 
@@ -30,7 +31,6 @@ class Tile {
                 let inThisFigure = arrayInArray(newLocation, this.position);
                 return !(coord_used && !inThisFigure);
             });
-            console.log(left_free);
             return left_free;
         }
         return false;
