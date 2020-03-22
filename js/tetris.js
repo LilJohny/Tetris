@@ -39,7 +39,6 @@ class Tetris {
 }
 
 function gameLoop() {
-    console.log(tetris.objects.length);
     getCurrentObject().moveDown();
     if (getCurrentObject() === undefined) {
         tetris.createNewTile();
