@@ -1,5 +1,5 @@
 function get2dArray(height, width) {
-    return new Array(this.height).fill().map(el => (new Array(this.width).fill()));
+    return new Array(height).fill().map(el => (new Array(width).fill()));
 }
 
 function getCurrentObject() {
