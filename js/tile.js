@@ -23,12 +23,8 @@ class Tile {
         return false;
     }
 
-    canBeMovedLeft() {
-        return this.canBeMoved([0, -1], BOARD.LEFT_EDGE);
-    }
-
-    canBeMovedRight() {
-        return this.canBeMoved([0, 1], BOARD.RIGHT_EDGE);
+    rotate(updatePlayground = true) {
+        this.rotateTile(this.constructor.transformations(), this.constructor.rotationChangeFunc(), updatePlayground);
     }
 
     move(move_vector, movable) {
@@ -41,6 +37,37 @@ class Tile {
             });
         }
         tetris.update_playground();
+    }
+
+    canBeMovedLeft() {
+        return this.canBeMoved([0, -1], BOARD.LEFT_EDGE);
+    }
+
+    canBeMovedRight() {
+        return this.canBeMoved([0, 1], BOARD.RIGHT_EDGE);
+    }
+
+    rotateTile(transformations, rotationChangeFunc, updatePlayground = true) {
+        let new_position = [];
+        let correct_rotation = true;
+        for (let i = 0; i < this.position.length; i++) {
+            const element = this.position[i];
+            let new_element;
+            let transformation = transformations[this.current_rotation][i];
+            new_element = transformation(element);
+            if (!correct_side_borders(new_element)) {
+                correct_rotation = false;
+                break;
+            }
+            new_position.push(new_element);
+        }
+        this.current_rotation = rotationChangeFunc(this.current_rotation);
+        if (correct_rotation) {
+            this.position = new_position;
+        }
+        if (updatePlayground === true) {
+            tetris.update_playground();
+        }
     }
 
     setStaticState() {

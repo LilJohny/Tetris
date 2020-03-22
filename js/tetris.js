@@ -1,5 +1,5 @@
 class Tetris {
-    constructor(initial_objects) {
+    constructor(initial_objects = []) {
         this.objects = initial_objects;
         this.gameInterval = setInterval(gameLoop, 1000);
         this.paused = false;
@@ -66,7 +66,8 @@ function gameLoop() {
     }
 }
 
-var tetris = new Tetris([]);
+
+var tetris = new Tetris();
 
 
 function getTetris() {
