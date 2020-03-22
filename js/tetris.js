@@ -25,7 +25,7 @@ class Tetris {
     }
 
     update_playground() {
-        this.playground = new Playground();
+        this.playground.clearPlaygroundMap();
         this.playground.render(this.objects);
     }
 
@@ -75,7 +75,6 @@ var tetris = new Tetris();
 function getTetris() {
     return tetris;
 }
-
 
 
 // TODO Random rotation on create

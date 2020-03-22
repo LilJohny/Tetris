@@ -1,7 +1,13 @@
 class Playground {
     constructor(height = 10, width = 5) {
-        this.playgroundMap = new Array(height).fill().map(el => (new Array(width).fill()));
+        this.height = height;
+        this.width = width;
+        this.playgroundMap = new Array(this.height).fill().map(el => (new Array(this.width).fill()));
         this.static_coords = [];
+    }
+
+    clearPlaygroundMap() {
+        this.playgroundMap = new Array(this.height).fill().map(el => (new Array(this.width).fill()));
     }
 
     /**
@@ -106,9 +112,11 @@ class Playground {
         for (let i = 0; i <= BOARD.RIGHT_EDGE; ++i) {
             coords_to_remove.push([row_number, i]);
         }
+        console.log(coords_to_remove);
         let fl = true;
         for (let i = 0; i < coords_to_remove.length; ++i) {
             if (!arrayInArray(coords_to_remove[i])) {
+                console.log(tetris.playground.static_coords);
                 fl = false;
                 break;
             }
