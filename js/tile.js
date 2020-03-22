@@ -7,7 +7,6 @@ class Tile {
     }
 
     moveDown() {
-        console.log("moving down");
         let falling = this.state === STATES.FALLING;
         let movable_down = this.position.every(can_be_moved_down);
         let moved = false;
@@ -20,30 +19,35 @@ class Tile {
             this.state = STATES.STATIC;
             tetris.playground.static_coords.push(...this.position);
         }
-
-        console.log(tetris.static_coords);
     }
 
     canBeMovedLeft() {
         let on_edge = this.position.some(coords => coords[1] === BOARD.LEFT_EDGE);
-        let left_free = this.position.some(coords => {
-            let newLocation = [coords[0], coords[1] - 1];
-            let coord_used = tetris.playground.playgroundMap[newLocation[0]][newLocation[1]] !== undefined;
-            let inThisFigure = arrayInArray(newLocation, this.position);
-            return !(coord_used && inThisFigure);
-        });
-        return !on_edge && left_free;
+        if (!on_edge) {
+            let left_free = this.position.every(coords => {
+                let newLocation = [coords[0], coords[1] - 1];
+                let coord_used = tetris.playground.playgroundMap[newLocation[0]][newLocation[1]] !== undefined;
+                let inThisFigure = arrayInArray(newLocation, this.position);
+                return !(coord_used && !inThisFigure);
+            });
+            console.log(left_free);
+            return left_free;
+        }
+        return false;
     }
 
     canBeMovedRight() {
         let on_edge = this.position.some(coords => coords[1] === BOARD.RIGHT_EDGE);
-        let right_free = this.position.some(coords => {
-            let newLocation = [coords[0], coords[1] + 1];
-            let coord_used = tetris.playground.playgroundMap[newLocation[0]][newLocation[1]] !== undefined;
-            let inThisFigure = arrayInArray(newLocation, this.position);
-            return !(coord_used && inThisFigure);
-        });
-        return !on_edge && right_free;
+        if (!on_edge) {
+            let right_free = this.position.every(coords => {
+                let newLocation = [coords[0], coords[1] + 1];
+                let coord_used = tetris.playground.playgroundMap[newLocation[0]][newLocation[1]] !== undefined;
+                let inThisFigure = arrayInArray(newLocation, this.position);
+                return !(coord_used && !inThisFigure);
+            });
+            return right_free;
+        }
+        return false;
     }
 
     moveRight() {
@@ -54,9 +58,7 @@ class Tile {
                 position[1] += 1;
             });
         }
-
         tetris.update_playground();
-        console.log("moving right");
     }
 
     moveLeft() {
@@ -67,8 +69,6 @@ class Tile {
                 position[1] -= 1;
             });
         }
-
         tetris.update_playground();
-        console.log("moving left");
     }
 }

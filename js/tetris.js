@@ -13,7 +13,6 @@ class Tetris {
      * Pauses game
      */
     pauseGame() {
-        console.log("Pause");
         if (!this.paused) {
             this.paused = true;
             clearInterval(this.gameInterval);
@@ -45,9 +44,7 @@ function gameLoop() {
     }
     if (row_number !== undefined) {
         tetris.playground.destroyCompletedRow(row_number, tetris);
-        console.log(tetris.score);
         tetris.score += LINE_PRICE;
-        console.log(tetris.score);
         tetris.playground.setScore(tetris.score);
     }
 }

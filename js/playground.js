@@ -23,10 +23,6 @@ class Playground {
     renderPositions(objects) {
         objects.forEach(object => {
             object.position.forEach(([rowIndex, cellIndex]) => {
-                if (this.playgroundMap[rowIndex] === undefined) {
-                    console.log(`undefined row ${rowIndex}`);
-                    console.log(object);
-                }
                 if (rowIndex <= BOARD.HEIGHT) {
                     this.playgroundMap[rowIndex][cellIndex] = object.color;
                 }
@@ -69,7 +65,6 @@ class Playground {
         tetrisObj.objects.forEach(element => {
             element.position = element.position.filter(coords => coords[0] !== rowInd);
         });
-        console.log(` row destroyed ${rowInd}`);
         tetrisObj.update_playground();
         for (let i = 0; i < tetrisObj.objects.length; i++) {
             const element = tetrisObj.objects[i];
@@ -107,8 +102,6 @@ class Playground {
             coords_to_remove.push([row_number, i]);
         }
         let fl = true;
-        console.log("static");
-        console.log(tetris.playground.static_coords);
         for (let i = 0; i < coords_to_remove.length; ++i) {
             if (!arrayInArray(coords_to_remove[i])) {
                 fl = false;

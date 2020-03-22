@@ -8,13 +8,11 @@ class tileI extends Tile {
     }
 
     rotate() {
-        console.log("rotating");
         let new_position = [];
         let correct_rotation = true;
         for (let i = 0; i < this.position.length; i++) {
             const element = this.position[i];
             let new_element;
-            console.log(`current_rotation ${this.current_rotation}`);
             if (this.current_rotation === 0) {
                 new_element = [element[0] + (this.center - i), element[1] + (this.center - i)];
             } else {
@@ -27,7 +25,6 @@ class tileI extends Tile {
             new_position.push(new_element);
         }
         this.current_rotation = this.current_rotation === 0 ? 1 : 0;
-        console.log(new_position);
         if (correct_rotation) {
             this.position = new_position;
         }
@@ -43,14 +40,12 @@ class tileJ extends Tile {
     }
 
     rotate() {
-        console.log("rotating");
         let new_position = [];
         let correct_rotation = true;
 
         for (let i = 0; i < this.position.length - 1; i++) {
             const element = this.position[i];
             let new_element;
-            console.log(`current_rotation ${this.current_rotation}`);
             if (this.current_rotation % 2 === 0) {
                 new_element = [element[0] + (this.center - i), element[1] + (this.center - i)];
             } else {
@@ -70,13 +65,11 @@ class tileJ extends Tile {
         };
         let last_transformation = transformations[this.current_rotation];
         let last_coords = last_transformation(this.position[this.position.length - 1]);
-        console.log(`last_coords: ${last_coords}`);
         if (!correct_side_borders(last_coords)) {
             correct_rotation = false;
         }
         new_position.push(last_coords);
         this.current_rotation = this.current_rotation === 3 ? 0 : this.current_rotation + 1;
-        console.log(new_position);
         if (correct_rotation) {
             this.position = new_position;
         }
@@ -92,14 +85,12 @@ class tileL extends Tile {
     }
 
     rotate() {
-        console.log("rotating");
         let new_position = [];
         let correct_rotation = true;
 
         for (let i = 0; i < this.position.length - 1; i++) {
             const element = this.position[i];
             let new_element;
-            console.log(`current_rotation ${this.current_rotation}`);
             if (this.current_rotation % 2 === 0) {
                 new_element = [element[0] + (this.center - i), element[1] + (this.center - i)];
             } else {
@@ -119,13 +110,11 @@ class tileL extends Tile {
         };
         let last_transformation = transformations[this.current_rotation];
         let last_coords = last_transformation(this.position[this.position.length - 1]);
-        console.log(`last_coords: ${last_coords}`);
         if (!correct_side_borders(last_coords)) {
             correct_rotation = false;
         }
         new_position.push(last_coords);
         this.current_rotation = this.current_rotation === 3 ? 0 : this.current_rotation + 1;
-        console.log(new_position);
         if (correct_rotation) {
             this.position = new_position;
         }
@@ -143,7 +132,6 @@ class tileO extends Tile {
 
     rotate() {
         tetris.update_playground();
-        console.log("rotating");
     }
 }
 
@@ -156,7 +144,6 @@ class tileS extends Tile {
 
 
     rotate() {
-        console.log("rotating");
         let new_position = [];
         let correct_rotation = true;
         let transformationZero = {
@@ -174,7 +161,6 @@ class tileS extends Tile {
         for (let i = 0; i < this.position.length; i++) {
             const element = this.position[i];
             let new_element;
-            console.log(`current_rotation ${this.current_rotation}`);
             if (this.current_rotation === 0) {
                 let transformation = transformationZero[i];
                 new_element = transformation(element);
@@ -189,7 +175,6 @@ class tileS extends Tile {
             new_position.push(new_element);
         }
         this.current_rotation = this.current_rotation === 1 ? 0 : 1;
-        console.log(new_position);
         if (correct_rotation) {
             this.position = new_position;
         }
@@ -205,14 +190,12 @@ class tileT extends Tile {
     }
 
     rotate() {
-        console.log("rotating");
         let new_position = [];
         let correct_rotation = true;
 
         for (let i = 0; i < this.position.length - 1; i++) {
             const element = this.position[i];
             let new_element;
-            console.log(`current_rotation ${this.current_rotation}`);
             if (this.current_rotation % 2 === 0) {
                 new_element = [element[0] + (this.center - i), element[1] + (this.center - i)];
             } else {
@@ -232,13 +215,11 @@ class tileT extends Tile {
         };
         let last_transformation = transformations[this.current_rotation];
         let last_coords = last_transformation(this.position[this.position.length - 1]);
-        console.log(`last_coords: ${last_coords}`);
         if (!correct_side_borders(last_coords)) {
             correct_rotation = false;
         }
         new_position.push(last_coords);
         this.current_rotation = this.current_rotation === 3 ? 0 : this.current_rotation + 1;
-        console.log(new_position);
         if (correct_rotation) {
             this.position = new_position;
         }
@@ -269,7 +250,6 @@ class tileZ extends Tile {
     }
 
     rotate() {
-        console.log("rotating");
         let new_position = [];
         let correct_rotation = true;
         let transformationZero = {
@@ -287,7 +267,6 @@ class tileZ extends Tile {
         for (let i = 0; i < this.position.length; i++) {
             const element = this.position[i];
             let new_element;
-            console.log(`current_rotation ${this.current_rotation}`);
             if (this.current_rotation === 0) {
                 let transformation = transformationZero[i];
                 new_element = transformation(element);
@@ -302,7 +281,6 @@ class tileZ extends Tile {
             new_position.push(new_element);
         }
         this.current_rotation = this.current_rotation === 1 ? 0 : 1;
-        console.log(new_position);
         if (correct_rotation) {
             this.position = new_position;
         }
