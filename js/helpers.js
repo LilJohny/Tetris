@@ -1,3 +1,7 @@
+function get2dArray(height, width) {
+    return new Array(this.height).fill().map(el => (new Array(this.width).fill()));
+}
+
 function getCurrentObject() {
     return tetris.objects.find(object => object.state === STATES.FALLING);
 }

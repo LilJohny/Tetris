@@ -2,12 +2,12 @@ class Playground {
     constructor(height = 10, width = 5) {
         this.height = height;
         this.width = width;
-        this.playgroundMap = new Array(this.height).fill().map(el => (new Array(this.width).fill()));
+        this.playgroundMap = get2dArray(this.height, this.width);
         this.static_coords = [];
     }
 
     clearPlaygroundMap() {
-        this.playgroundMap = new Array(this.height).fill().map(el => (new Array(this.width).fill()));
+        this.playgroundMap = get2dArray(this.height, this.width);
     }
 
     /**
