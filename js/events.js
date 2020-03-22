@@ -1,12 +1,6 @@
 document.addEventListener("keydown", event => {
-    let EVENT_HANDLERS = {
-        [KEYS.UP]: [getCurrentObject().rotate, getCurrentObject],
-        [KEYS.DOWN]: [getCurrentObject().moveDown, getCurrentObject],
-        [KEYS.LEFT]: [getCurrentObject().moveLeft, getCurrentObject],
-        [KEYS.RIGHT]: [getCurrentObject().moveRight, getCurrentObject],
-        [KEYS.SPACE]: [tetris.pauseGame, getTetris]
-    };
-    let handler_pair = EVENT_HANDLERS[event.keyCode];
+    let eventHandlers = getEventHandlers();
+    let handler_pair = eventHandlers[event.keyCode];
     if (handler_pair === undefined) {
         console.log(`Unsupported key ${event.keyCode}`);
     } else {
@@ -15,3 +9,13 @@ document.addEventListener("keydown", event => {
         handler.call(object);
     }
 });
+
+function getEventHandlers() {
+    return {
+        [KEYS.UP]: [getCurrentObject().rotate, getCurrentObject],
+        [KEYS.DOWN]: [getCurrentObject().moveDown, getCurrentObject],
+        [KEYS.LEFT]: [getCurrentObject().moveLeft, getCurrentObject],
+        [KEYS.RIGHT]: [getCurrentObject().moveRight, getCurrentObject],
+        [KEYS.SPACE]: [tetris.pauseGame, getTetris]
+    };
+}
