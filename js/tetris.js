@@ -67,6 +67,5 @@ const EVENT_HANDLERS = {
 
 // TODO Random rotation on create
 // TODO Game over when can`t create figure
-// TODO Figure rotation on UP button
 // TODO Figures creation
 // TODO Refactoring
