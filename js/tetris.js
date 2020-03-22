@@ -34,6 +34,7 @@ class Tetris {
         }
         let rotations = getRandomValue(ROTATION_NUMBER);
         this.objects.push(tile);
+        this.update_playground();
     }
 
     gameOver() {
@@ -52,13 +53,7 @@ function gameLoop() {
     if (getCurrentObject() === undefined) {
         tetris.createNewTile();
     }
-    //below is temporary
-    tetris.objects.forEach(object => {
-        if (object.state === STATES.STATIC) {
-            tetris.playground.static_coords.push(...object.position);
-        }
-    });
-    //end of temporary block
+
     let ready_map = tetris.playground.getPlaygroundReadyMap();
     let row_number;
     if (ready_map.some((x) => x)) {
@@ -71,8 +66,8 @@ function gameLoop() {
     }
 }
 
-
 var tetris = new Tetris([]);
+
 
 function getTetris() {
     return tetris;

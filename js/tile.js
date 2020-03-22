@@ -6,31 +6,15 @@ class Tile {
         this.current_rotation = 0;
     }
 
-    moveDown() {
-        let falling = this.state === STATES.FALLING;
-        let movable_down = this.position.every(can_be_moved_down);
-        let moved = false;
-        if (falling && movable_down && !tetris.paused) {
-            this.position.forEach(position => position[0] -= 1);
-            moved = true;
-        }
-        tetris.update_playground();
-        if (moved && !this.position.every(can_be_moved_down)) {
-            this.state = STATES.STATIC;
-            tetris.playground.static_coords.push(...this.position);
-            tetris.createNewTile();
-        }
-    }
-
     canBeMoved(move, border) {
         let on_edge = this.position.some(coords => coords[1] === border);
         if (!on_edge) {
             let border_free = this.position.every(coords => {
                 let newLocation = [coords[0] + move[0], coords[1] + move[1]];
-                if (tetris.playground.playgroundMap[newLocation[0]] === undefined) {
-                    console.log(`undefined ${newLocation[0]}`);
+                let coord_used = false;
+                if (tetris.playground.playgroundMap[newLocation[0]] !== undefined) {
+                    coord_used = tetris.playground.playgroundMap[newLocation[0]][newLocation[1]] !== undefined;
                 }
-                let coord_used = tetris.playground.playgroundMap[newLocation[0]][newLocation[1]] !== undefined;
                 let inThisFigure = arrayInArray(newLocation, this.position);
                 return !(coord_used && !inThisFigure);
             });
@@ -44,42 +28,44 @@ class Tile {
     }
 
     canBeMovedRight() {
-        let on_edge = this.position.some(coords => coords[1] === BOARD.RIGHT_EDGE);
-        if (!on_edge) {
-            let right_free = this.position.every(coords => {
-                let newLocation = [coords[0], coords[1] + 1];
-                if (tetris.playground.playgroundMap[newLocation[0]] === undefined) {
-                    console.log(`undefined ${newLocation[0]}`);
-                }
-                let coord_used = tetris.playground.playgroundMap[newLocation[0]][newLocation[1]] !== undefined;
-                let inThisFigure = arrayInArray(newLocation, this.position);
-                return !(coord_used && !inThisFigure);
+        return this.canBeMoved([0, 1], BOARD.RIGHT_EDGE);
+    }
+
+    move(move_vector, movable) {
+        let falling = this.state === STATES.FALLING;
+        if (falling && movable && !tetris.paused) {
+            this.position.forEach(position => {
+                position[0] += move_vector[0];
+                position[1] += move_vector[1];
+
             });
-            return right_free;
         }
-        return false;
+        tetris.update_playground();
+    }
+
+    setStaticState() {
+        this.state = STATES.STATIC;
+        tetris.playground.static_coords.push(...this.position);
+        tetris.createNewTile();
+    }
+
+    moveDown() {
+        let falling = this.state === STATES.FALLING;
+        let movable_down = this.position.every(can_be_moved_down);
+        let moved = falling && movable_down && !tetris.paused;
+        this.move([-1, 0], movable_down);
+        if (moved && !this.position.every(can_be_moved_down)) {
+            this.setStaticState();
+        }
     }
 
     moveRight() {
-        let falling = this.state === STATES.FALLING;
         let movable_right = this.canBeMovedRight();
-        if (falling && movable_right && !tetris.paused) {
-            this.position.forEach(position => {
-                position[1] += 1;
-            });
-        }
-
-        tetris.update_playground();
+        this.move([0, 1], movable_right);
     }
 
     moveLeft() {
-        let falling = this.state === STATES.FALLING;
         let movable_left = this.canBeMovedLeft();
-        if (falling && movable_left && !tetris.paused) {
-            this.position.forEach(position => {
-                position[1] -= 1;
-            });
-        }
-        tetris.update_playground();
+        this.move([0, -1], movable_left);
     }
 }
