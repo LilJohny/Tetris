@@ -223,10 +223,10 @@ class tileZ extends Tile {
 const figureType = [tileL, tileZ, tileI, tileJ, tileO, tileS, tileT];
 const initialPositions = {
     [tileL]: [[[9, 0], [9, 1], [9, 2], [8, 0]]],
-    [tileZ]: [[[9, 2], [9, 3], [8, 3], [8, 4]]],
+    [tileZ]: [[[9, 0], [9, 1], [8, 1], [8, 2]]],
     [tileI]: [[[9, 0], [9, 1], [9, 2], [9, 3]]],
     [tileJ]: [[[9, 0], [9, 1], [9, 2], [8, 2]]],
-    [tileO]: [[[9, 2], [9, 3], [8, 2], [8, 3]]],
+    [tileO]: [[[9, 0], [9, 1], [8, 0], [8, 1]]],
     [tileS]: [[[9, 2], [9, 3], [8, 1], [8, 2]]],
     [tileT]: [[[9, 0], [9, 1], [9, 2], [8, 1]]]
 };

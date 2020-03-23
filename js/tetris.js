@@ -81,8 +81,6 @@ function gameLoop() {
 }
 
 
-
-
 function getTetris() {
     return tetris;
 }
