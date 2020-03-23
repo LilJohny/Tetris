@@ -4,6 +4,7 @@ This is Tetris game, implemented in JavaScript(+HTML&CSS)<br/>
 - Completed row disappears
 - The game ends when there is no ability to create a new tile
 - Move tile to left
+- Random selection of tile type
 - Move tile to the right <br/>
 
 # Additional tasks completed:<br/>
