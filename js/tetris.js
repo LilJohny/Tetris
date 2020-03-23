@@ -50,7 +50,6 @@ class Tetris {
     startGame() {
         if (this.objects.length === 0) {
             this.createNewTile();
-            console.log("here");
         }
         this.gameInterval = setInterval(gameLoop, 1000);
         this.paused = false;
