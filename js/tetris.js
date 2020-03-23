@@ -19,8 +19,26 @@ class Tetris {
         for (let i = 0; i < rotations; i++) {
             tile.rotate(false);
         }
+        let offset = getRandomValue(this.getAvailableOffsets(tile));
+        tile.move([0, offset], true, false);
         this.objects.push(tile);
         this.update_playground();
+    }
+
+    getAvailableOffsets(tile) {
+        let availableOffsets = [];
+        for (let i = 0; i < OFFSETS.length; i++) {
+            let offset = OFFSETS[i];
+            let moved = [];
+            for (let j = 0; j < tile.position.length; j++) {
+                let coords = tile.position[j];
+                moved.push([coords[0], coords[1] + offset]);
+            }
+            if (moved.every(this.playground.coordEmpty) && moved.every(correct_side_borders)) {
+                availableOffsets.push(offset);
+            }
+        }
+        return availableOffsets;
     }
 
     update_playground() {

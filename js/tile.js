@@ -31,7 +31,7 @@ class Tile {
         this.rotateTile(this.constructor.transformations(), this.constructor.rotationChangeFunc(), updatePlayground);
     }
 
-    move(move_vector, movable) {
+    move(move_vector, movable, updatePlayground = true) {
         let falling = this.state === STATES.FALLING;
         if (falling && movable && !tetris.paused) {
             this.position.forEach(position => {
@@ -40,7 +40,9 @@ class Tile {
 
             });
         }
-        tetris.update_playground();
+        if (updatePlayground) {
+            tetris.update_playground();
+        }
     }
 
     canBeMovedLeft() {

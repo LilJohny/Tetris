@@ -27,14 +27,18 @@ class Playground {
     }
 
     coordEmpty(coord) {
-        if (coord[0] < 0 || coord[0] >= this.height) {
+        let playground = this;
+        if (playground === undefined) {
+            playground = tetris.playground;
+        }
+        if (coord[0] < 0 || coord[0] >= playground.height) {
             return true;
         }
-        if (coord[1] < 0 || coord[1] > this.width) {
+        if (coord[1] < 0 || coord[1] > playground.width) {
             return true;
         }
 
-        return this.playgroundMap[coord[0]][coord[1]] === undefined;
+        return playground.playgroundMap[coord[0]][coord[1]] === undefined;
     }
 
     renderPositions(objects) {
