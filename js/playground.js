@@ -1,5 +1,5 @@
 class Playground {
-    constructor(height = BOARD.HEIGHT+1, width = BOARD.RIGHT_EDGE+1) {
+    constructor(height = BOARD.HEIGHT + 1, width = BOARD.RIGHT_EDGE + 1) {
         this.height = height;
         this.width = width;
         this.playgroundMap = get2dArray(this.height, this.width);
@@ -37,7 +37,6 @@ class Playground {
         if (coord[1] < 0 || coord[1] > playground.width) {
             return true;
         }
-
         return playground.playgroundMap[coord[0]][coord[1]] === undefined;
     }
 
@@ -82,13 +81,18 @@ class Playground {
         playgroundNode.innerText = `Your Score: ${score}`;
     }
 
-    destroyCompletedRow(rowInd, tetrisObj) {
-        tetrisObj.objects.forEach(element => {
+    destroyCompletedRow(rowInd) {
+        tetris.objects.forEach(element => {
             element.position = element.position.filter(coords => coords[0] !== rowInd);
         });
-        tetrisObj.update_playground();
-        for (let i = 0; i < tetrisObj.objects.length; i++) {
-            const element = tetrisObj.objects[i];
+        tetris.update_playground();
+        this.moveDownAboveCoords(rowInd);
+        tetris.update_playground();
+    }
+
+    moveDownAboveCoords(rowInd) {
+        for (let i = 0; i < tetris.objects.length; i++) {
+            const element = tetris.objects[i];
             for (let i = 0; i < element.position.length; i++) {
                 let coords = element.position[i];
                 if (coords[0] > rowInd) {
@@ -96,7 +100,13 @@ class Playground {
                 }
             }
         }
-        tetrisObj.update_playground();
+    }
+
+    moveDownStatic() {
+        let staticObjects = tetris.objects.filter(object => object.state === STATES.STATIC);
+        staticObjects = staticObjects.filter(object => object.position.every(can_be_moved_down));
+        staticObjects.forEach(object => object.move(MOVE_VECTORS.DOWN, true));
+        tetris.update_playground();
     }
 
     getPlaygroundReadyMap() {
@@ -138,6 +148,7 @@ class Playground {
         }
         return fl === true ? row_number : undefined;
     }
+
     correct_side_borders(coords) {
         return (coords[1] <= BOARD.RIGHT_EDGE && coords[1] >= BOARD.LEFT_EDGE);
     }

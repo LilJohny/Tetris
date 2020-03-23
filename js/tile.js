@@ -92,7 +92,7 @@ class Tile {
         let falling = this.state === STATES.FALLING;
         let movable_down = this.position.every(can_be_moved_down);
         let moved = falling && movable_down && !tetris.paused;
-        this.move([-1, 0], movable_down);
+        this.move(MOVE_VECTORS.DOWN, movable_down);
         if (moved === true) {
             movable_down = this.position.every(can_be_moved_down);
         }
@@ -103,11 +103,11 @@ class Tile {
 
     moveRight() {
         let movable_right = this.canBeMovedRight();
-        this.move([0, 1], movable_right);
+        this.move(MOVE_VECTORS.RIGHT, movable_right);
     }
 
     moveLeft() {
         let movable_left = this.canBeMovedLeft();
-        this.move([0, -1], movable_left);
+        this.move(MOVE_VECTORS.LEFT, movable_left);
     }
 }

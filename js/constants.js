@@ -8,3 +8,8 @@ const LINE_PRICE = 100;
 
 const ROTATION_NUMBER = [1, 2, 3, 4];
 const OFFSETS = [1, 2];
+const MOVE_VECTORS = {
+    DOWN: [-1, 0],
+    RIGHT: [0, 1],
+    LEFT: [0, -1]
+};

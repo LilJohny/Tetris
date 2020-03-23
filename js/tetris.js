@@ -95,6 +95,7 @@ function gameLoop() {
         tetris.playground.destroyCompletedRow(row_number, tetris);
         tetris.score += LINE_PRICE;
         tetris.playground.setScore(tetris.score);
+        tetris.playground.moveDownStatic();
     }
 }
 
