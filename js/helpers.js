@@ -15,7 +15,7 @@ function can_be_moved_down(coordinates) {
 
     let below_cell_exists = coordinates[0] - 1 >= 0;
     if (in_borders && !above_upper_border && below_cell_exists) {
-        below_cell_empty = tetris.playground.playgroundMap[coordinates[0] - 1][coordinates[1]] === undefined;
+        below_cell_empty = tetris.playground.coordEmpty([coordinates[0] - 1, coordinates[1]]);
     } else if (above_upper_border) {
         below_cell_empty = true;
     }
@@ -45,7 +45,7 @@ function arrayInArray(sub, main = tetris.playground.static_coords) {
 }
 
 function correct_side_borders(coords) {
-    return !(coords[1] > BOARD.RIGHT_EDGE || coords[1] < 0);
+    return (coords[1] <= BOARD.RIGHT_EDGE && coords[1] >= BOARD.LEFT_EDGE);
 }
 
 function getRandomValue(array) {

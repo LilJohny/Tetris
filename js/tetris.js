@@ -16,7 +16,7 @@ class Tetris {
         let position = (initialPositions[tileType])[0];
         let actualPosition = JSON.parse(JSON.stringify(position));
         let tile = new tileType(actualPosition, STATES.FALLING);
-        if (actualPosition.some((coords) => this.playground.playgroundMap[coords[0]][coords[1]] !== undefined)) {
+        if (actualPosition.some((coords) => !this.playground.coordEmpty(coords))) {
             this.gameOver();
         }
         let rotations = getRandomValue(ROTATION_NUMBER);

@@ -6,6 +6,10 @@ class Tile {
         this.current_rotation = 0;
     }
 
+    isInCoords(coord) {
+        return arrayInArray(coord, this.position);
+    }
+
     canBeMoved(move, border) {
         let on_edge = this.position.some(coords => coords[1] === border);
         if (!on_edge) {
@@ -13,7 +17,7 @@ class Tile {
                 let newLocation = [coords[0] + move[0], coords[1] + move[1]];
                 let coord_used = false;
                 if (tetris.playground.playgroundMap[newLocation[0]] !== undefined) {
-                    coord_used = tetris.playground.playgroundMap[newLocation[0]][newLocation[1]] !== undefined;
+                    coord_used = !tetris.playground.coordEmpty(newLocation);
                 }
                 let inThisFigure = arrayInArray(newLocation, this.position);
                 return !(coord_used && !inThisFigure);
@@ -55,15 +59,21 @@ class Tile {
             let new_element;
             let transformation = transformations[this.current_rotation][i];
             new_element = transformation(element);
-            if (!correct_side_borders(new_element)) {
+            let inThisFigure = this.isInCoords(new_element);
+            let checked_side_borders = correct_side_borders(new_element);
+            let coordEmpty = true;
+            if (!inThisFigure) {
+                coordEmpty = tetris.playground.coordEmpty(new_element);
+            }
+            if (!checked_side_borders || !coordEmpty) {
                 correct_rotation = false;
                 break;
             }
             new_position.push(new_element);
         }
-        this.current_rotation = rotationChangeFunc(this.current_rotation);
         if (correct_rotation && !tetris.paused) {
             this.position = new_position;
+            this.current_rotation = rotationChangeFunc(this.current_rotation);
         }
         if (updatePlayground === true) {
             tetris.update_playground();
@@ -81,7 +91,7 @@ class Tile {
         let movable_down = this.position.every(can_be_moved_down);
         let moved = falling && movable_down && !tetris.paused;
         this.move([-1, 0], movable_down);
-        if(moved === true){
+        if (moved === true) {
             movable_down = this.position.every(can_be_moved_down);
         }
         if (!movable_down) {

@@ -26,6 +26,16 @@ class Playground {
         }
     }
 
+    coordEmpty(coord) {
+        if (coord[0] < 0 || coord[0] > this.height) {
+            return true;
+        }
+        if (coord[1] < 0 || coord[1] > this.width) {
+            return true;
+        }
+        return this.playgroundMap[coord[0]][coord[1]] === undefined;
+    }
+
     renderPositions(objects) {
         objects.forEach(object => {
             object.position.forEach(([rowIndex, cellIndex]) => {
