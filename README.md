@@ -1,4 +1,4 @@
-# Tetrics
+# Tetris
 This is Tetris game, implemented in JavaScript(+HTML&CSS)<br/>
 # Compulsory tasks completed:
 - Completed row disappears
