@@ -137,11 +137,9 @@ class Playground {
         for (let i = 0; i <= BOARD.RIGHT_EDGE; ++i) {
             coords_to_remove.push([row_number, i]);
         }
-        console.log(coords_to_remove);
         let fl = true;
         for (let i = 0; i < coords_to_remove.length; ++i) {
             if (!arrayInArray(coords_to_remove[i])) {
-                console.log(tetris.playground.static_coords);
                 fl = false;
                 break;
             }

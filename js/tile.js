@@ -1,6 +1,5 @@
 class Tile {
-    constructor(shape_type, coordinates, shape_state) {
-        this.type = shape_type;
+    constructor(coordinates, shape_state) {
         this.position = coordinates;
         this.state = shape_state;
         this.current_rotation = 0;

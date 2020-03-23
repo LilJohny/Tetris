@@ -1,7 +1,7 @@
 class tileI extends Tile {
 
     constructor(coordinates, figure_state) {
-        super("I", coordinates, figure_state);
+        super(coordinates, figure_state);
         this.color = "green";
     }
 
@@ -29,7 +29,7 @@ class tileI extends Tile {
 
 class tileJ extends Tile {
     constructor(coordinates, figure_state) {
-        super("J", coordinates, figure_state);
+        super(coordinates, figure_state);
         this.color = "yellow";
     }
 
@@ -71,7 +71,7 @@ class tileJ extends Tile {
 
 class tileL extends Tile {
     constructor(coordinates, figure_state) {
-        super("L", coordinates, figure_state);
+        super(coordinates, figure_state);
         this.color = "red";
     }
 
@@ -113,7 +113,7 @@ class tileL extends Tile {
 
 class tileO extends Tile {
     constructor(coordinates, figure_state) {
-        super("O", coordinates, figure_state);
+        super(coordinates, figure_state);
         this.color = "fuchsia";
     }
 
@@ -126,7 +126,7 @@ class tileO extends Tile {
 
 class tileS extends Tile {
     constructor(coordinates, figure_state) {
-        super("S", coordinates, figure_state);
+        super(coordinates, figure_state);
         this.color = "teal";
     }
 
@@ -154,7 +154,7 @@ class tileS extends Tile {
 
 class tileT extends Tile {
     constructor(coordinates, figure_state) {
-        super("T", coordinates, figure_state);
+        super(coordinates, figure_state);
         this.color = "purple";
     }
 
@@ -194,7 +194,7 @@ class tileT extends Tile {
 
 class tileZ extends Tile {
     constructor(coordinates, figure_state) {
-        super("Z", coordinates, figure_state);
+        super(coordinates, figure_state);
         this.color = "aqua";
     }
 
