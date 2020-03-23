@@ -9,7 +9,7 @@ class Tetris {
 
     createNewTile() {
         let tileType = getRandomValue(figureType);
-        let position = (initialPositions[tileType])[0];
+        let position = initialPositions[tileType];
         let actualPosition = JSON.parse(JSON.stringify(position));
         let tile = new tileType(actualPosition, STATES.FALLING);
         if (actualPosition.some((coords) => !this.playground.coordEmpty(coords))) {
