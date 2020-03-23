@@ -1,5 +1,5 @@
 class Playground {
-    constructor(height = 10, width = 5) {
+    constructor(height = BOARD.HEIGHT+1, width = BOARD.RIGHT_EDGE+1) {
         this.height = height;
         this.width = width;
         this.playgroundMap = get2dArray(this.height, this.width);
@@ -137,5 +137,8 @@ class Playground {
             }
         }
         return fl === true ? row_number : undefined;
+    }
+    correct_side_borders(coords) {
+        return (coords[1] <= BOARD.RIGHT_EDGE && coords[1] >= BOARD.LEFT_EDGE);
     }
 }

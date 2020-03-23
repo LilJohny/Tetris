@@ -43,11 +43,6 @@ function arrayInArray(sub, main = tetris.playground.static_coords) {
     }
     return not_equal !== main.length;
 }
-
-function correct_side_borders(coords) {
-    return (coords[1] <= BOARD.RIGHT_EDGE && coords[1] >= BOARD.LEFT_EDGE);
-}
-
 function getRandomValue(array) {
     return array[Math.floor(Math.random() * array.length)];
 }

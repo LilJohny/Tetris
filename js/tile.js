@@ -62,7 +62,7 @@ class Tile {
             let transformation = transformations[this.current_rotation][i];
             new_element = transformation(element);
             let inThisFigure = this.isInCoords(new_element);
-            let checked_side_borders = correct_side_borders(new_element);
+            let checked_side_borders = tetris.playground.correct_side_borders(new_element);
             let coordEmpty = true;
             if (!inThisFigure) {
                 coordEmpty = tetris.playground.coordEmpty(new_element);

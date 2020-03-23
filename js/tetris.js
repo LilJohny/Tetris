@@ -34,7 +34,7 @@ class Tetris {
                 let coords = tile.position[j];
                 moved.push([coords[0], coords[1] + offset]);
             }
-            if (moved.every(this.playground.coordEmpty) && moved.every(correct_side_borders)) {
+            if (moved.every(this.playground.coordEmpty) && moved.every(this.playground.correct_side_borders)) {
                 availableOffsets.push(offset);
             }
         }
