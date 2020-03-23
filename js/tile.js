@@ -62,7 +62,7 @@ class Tile {
             new_position.push(new_element);
         }
         this.current_rotation = rotationChangeFunc(this.current_rotation);
-        if (correct_rotation) {
+        if (correct_rotation && !tetris.paused) {
             this.position = new_position;
         }
         if (updatePlayground === true) {
@@ -81,7 +81,10 @@ class Tile {
         let movable_down = this.position.every(can_be_moved_down);
         let moved = falling && movable_down && !tetris.paused;
         this.move([-1, 0], movable_down);
-        if (moved && !this.position.every(can_be_moved_down)) {
+        if(moved === true){
+            movable_down = this.position.every(can_be_moved_down);
+        }
+        if (!movable_down) {
             this.setStaticState();
         }
     }
