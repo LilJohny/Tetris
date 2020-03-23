@@ -12,15 +12,16 @@ class Tetris {
         let position = initialPositions[tileType];
         let actualPosition = JSON.parse(JSON.stringify(position));
         let tile = new tileType(actualPosition, STATES.FALLING);
-        if (actualPosition.some((coords) => !this.playground.coordEmpty(coords))) {
-            this.gameOver();
-        }
+
         let rotations = getRandomValue(ROTATION_NUMBER);
         for (let i = 0; i < rotations; i++) {
             tile.rotate(false);
         }
         let offset = getRandomValue(this.getAvailableOffsets(tile));
         tile.move([0, offset], true, false);
+        if (tile.position.some((coords) => !this.playground.coordEmpty(coords))) {
+            this.gameOver();
+        }
         this.objects.push(tile);
         this.update_playground();
     }
