@@ -1,13 +1,9 @@
 class Tetris {
     constructor(initial_objects = []) {
         this.objects = initial_objects;
-        this.gameInterval = setInterval(gameLoop, 1000);
-        this.paused = false;
+        this.paused = true;
         this.score = 0;
         this.playground = new Playground();
-        if (initial_objects.length === 0) {
-            this.createNewTile();
-        }
         this.playground.render(this.objects);
     }
 
@@ -20,6 +16,9 @@ class Tetris {
             this.gameOver();
         }
         let rotations = getRandomValue(ROTATION_NUMBER);
+        for (let i = 0; i < rotations; i++) {
+            tile.rotate(false);
+        }
         this.objects.push(tile);
         this.update_playground();
     }
@@ -27,6 +26,15 @@ class Tetris {
     update_playground() {
         this.playground.clearPlaygroundMap();
         this.playground.render(this.objects);
+    }
+
+    startGame() {
+        if (this.objects.length === 0) {
+            this.createNewTile();
+            console.log("here");
+        }
+        this.gameInterval = setInterval(gameLoop, 1000);
+        this.paused = false;
     }
 
     /**
@@ -37,8 +45,7 @@ class Tetris {
             this.paused = true;
             clearInterval(this.gameInterval);
         } else {
-            this.gameInterval = setInterval(gameLoop, 1000);
-            this.paused = false;
+            this.startGame();
         }
     }
 
@@ -49,6 +56,11 @@ class Tetris {
 
 
 }
+
+var tetris = new Tetris();
+
+tetris.startGame();
+
 
 function gameLoop() {
     getCurrentObject().moveDown();
@@ -69,7 +81,6 @@ function gameLoop() {
 }
 
 
-var tetris = new Tetris();
 
 
 function getTetris() {
@@ -77,5 +88,4 @@ function getTetris() {
 }
 
 
-// TODO Random rotation on create
 // TODO Refactoring
