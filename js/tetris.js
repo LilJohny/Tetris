@@ -1,131 +1,108 @@
-/**
- * Adds object positions to the empty playground array
- */
-function renderPositions() {
-    objects.forEach(object => {
-        object.position.forEach(([rowIndex, cellIndex]) => {
-            playground[rowIndex][cellIndex] = TYPE_COLORS[object.type];
-        });
-    });
-}
-
-/**
- * Moves current active object down
- */
-function moveDown() {
-    let currentObject = getCurrentObject();
-    let falling = currentObject.state === "falling";
-    let movable_down = currentObject.position.every(can_be_moved_down);
-    if (falling && movable_down) {
-        currentObject.position.forEach(position => position[0] -= 1);
-    }
-    if (!movable_down) {
-        currentObject.state = STATES.STATIC;
+class Tetris {
+    constructor(initial_objects = []) {
+        this.objects = initial_objects;
+        this.paused = true;
+        this.score = 0;
+        this.playground = new Playground();
+        this.playground.render(this.objects);
     }
 
-    playground = createPlayground();
-    renderPositions();
-    renderPlayground();
-}
-/**
- * Moves current active object right
- */
-function moveRight() {
-    let currentObject = getCurrentObject();
-    let falling = currentObject.state === "falling";
-    let movable_right = !currentObject.position.some(at_right_edge);
-    if (falling && movable_right && !paused) {
-        currentObject.position.forEach(position => position[1] += 1);
-    }
-    playground = createPlayground();
-    renderPositions();
-    renderPlayground();
-    console.log("moving right");
-}
-/**
- * Moves current active object left
- */
-function moveLeft() {
-    let currentObject = getCurrentObject();
-    let falling = currentObject.state === "falling";
-    let movable_left = !currentObject.position.some(at_left_edge);
-    if (falling && movable_left && !paused) {
-        currentObject.position.forEach(position => position[1] -= 1);
-    }
-    playground = createPlayground();
-    renderPositions();
-    renderPlayground();
-    console.log("moving left");
-}
-/**
- * Rotates currently active object
- */
-function rotate() {
-    let currentObject = getCurrentObject();
-    console.log(currentObject);
-    let new_position = [];
-    for (let i = 0; i < currentObject.position.length; i++) {
-        const element = currentObject.position[i];
-        const new_element = [element[1], element[0]];
-        new_position.push(new_element);
-    }
-    currentObject.position = new_position;
-    console.log(currentObject);
-    playground = createPlayground();
-    renderPositions();
-    renderPlayground();
-    console.log("rotating");
-}
-/**
- * Pauses game
- */
-function pauseGame() {
-    if (!paused) {
-        paused = true;
-        clearInterval(gameInterval);
-    } else {
-        gameInterval = setInterval(gameLoop, 1000);
-        paused = false;
-    }
-}
+    createNewTile() {
+        let tileType = getRandomValue(figureType);
+        let position = initialPositions[tileType];
+        let actualPosition = JSON.parse(JSON.stringify(position));
+        let tile = new tileType(actualPosition, STATES.FALLING);
 
-var gameInterval = setInterval(gameLoop, 1000);
-
-function gameLoop() {
-    moveDown();
-    let ready_map = getPlaygroundReadyMap();
-    if (ready_map.some()) {
-        let row_number = ready_map.indexOf(true);
-        
+        let rotations = getRandomValue(ROTATION_NUMBER);
+        for (let i = 0; i < rotations; i++) {
+            tile.rotate(false);
+        }
+        let offset = getRandomValue(this.getAvailableOffsets(tile));
+        tile.move([0, offset], true, false);
+        if (tile.position.some((coords) => !this.playground.coordEmpty(coords))) {
+            this.gameOver();
+        }
+        this.objects.push(tile);
+        this.update_playground();
     }
-}
 
-function getPlaygroundReadyMap() {
-    let result = [];
-    for (let i = 0; i < playground.length; i++) {
-        const row = playground[i];
-        let fl = true;
-        for (let i = 0; i < row.length; i++) {
-            const element = row[i];
-            if (element === undefined) {
-                fl = false;
-                break;
+    getAvailableOffsets(tile) {
+        let availableOffsets = [];
+        for (let i = 0; i < OFFSETS.length; i++) {
+            let offset = OFFSETS[i];
+            let moved = [];
+            for (let j = 0; j < tile.position.length; j++) {
+                let coords = tile.position[j];
+                moved.push([coords[0], coords[1] + offset]);
+            }
+            if (moved.every(this.playground.coordEmpty) && moved.every(this.playground.correct_side_borders)) {
+                availableOffsets.push(offset);
             }
         }
-        result.push(fl);
+        return availableOffsets;
     }
-    return result;
+
+    update_playground() {
+        this.playground.clearPlaygroundMap();
+        this.playground.render(this.objects);
+    }
+
+    startGame() {
+        if (this.objects.length === 0) {
+            this.createNewTile();
+        }
+        this.gameInterval = setInterval(gameLoop, 1000);
+        this.paused = false;
+    }
+
+    /**
+     * Pauses game
+     */
+    pauseGame() {
+        if (!this.paused) {
+            this.paused = true;
+            clearInterval(this.gameInterval);
+        } else {
+            this.startGame();
+        }
+    }
+
+    gameOver() {
+        this.pauseGame();
+        this.playground.gameOver();
+    }
+
+
+}
+
+var tetris = new Tetris();
+
+tetris.startGame();
+
+
+function gameLoop() {
+    getCurrentObject().moveDown();
+    if (getCurrentObject() === undefined) {
+        tetris.createNewTile();
+    }
+
+    let ready_map = tetris.playground.getPlaygroundReadyMap();
+    let row_number;
+    if (ready_map.some((x) => x)) {
+        row_number = tetris.playground.checkRowCompleted(ready_map);
+    }
+    if (row_number !== undefined) {
+        tetris.playground.destroyCompletedRow(row_number, tetris);
+        tetris.score += LINE_PRICE;
+        tetris.playground.setScore(tetris.score);
+        tetris.playground.moveDownStatic();
+    }
 }
 
 
-const EVENT_HANDLERS = { [KEYS.UP]: rotate, [KEYS.DOWN]: moveDown, [KEYS.LEFT]: moveLeft, [KEYS.RIGHT]: moveRight, [KEYS.SPACE]: pauseGame };
+function getTetris() {
+    return tetris;
+}
 
-renderPlayground();
 
-// TODO Random rotation on create
-// TODO Line disappearing
-// TODO Game over when can`t create figure
-// TODO Figure rotation on UP button
-// TODO Figures creation
-// TODO Score count
-// TODO Add more figures
+// TODO Refactoring

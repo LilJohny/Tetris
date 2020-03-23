@@ -23,11 +23,33 @@ body {
   background: #e9a2ad;
   border-color: #d3455b;
 }
+
 .cell.purple {
   background: #b2acfa;
   border-color: #6558f5;
 }
+
 .cell.green {
   background: #8dd7cf;
   border-color: #1aae9f;
+}
+
+.cell.yellow {
+  background: yellow;
+  border-color: lightyellow;
+}
+
+.cell.fuchsia {
+  background: fuchsia;
+  border-color: magenta;
+}
+
+.cell.teal {
+  background: teal;
+  border-color: darkcyan;
+}
+
+.cell.aqua {
+  background: aqua;
+  border-color: LightCyan;
 }
