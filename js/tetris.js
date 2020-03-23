@@ -104,5 +104,3 @@ function getTetris() {
     return tetris;
 }
 
-
-// TODO Refactoring
